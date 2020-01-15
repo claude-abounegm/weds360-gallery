@@ -79,8 +79,13 @@ const GalleryImages = props => {
     const { to } = error;
 
     let path = "/";
+
     if (to) {
-      path = `/?page=${error.to}`;
+      if (categoryId) {
+        path = `${path}${categoryId}`;
+      }
+
+      path = `${path}/?page=${error.to}`;
     }
 
     return <Redirect to={path} />;

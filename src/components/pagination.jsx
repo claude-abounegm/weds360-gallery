@@ -31,7 +31,7 @@ const Pagination = props => {
       text: "← Previous",
       onPageChange: () => onPageChange(currentPage - 1)
     }),
-    ..._.range(1, Math.min(pagesCount, 10)).map(page =>
+    ..._.range(1, Math.min(pagesCount + 1, 10)).map(page =>
       paginationButton(page, { disabled: currentPage === page, onPageChange })
     )
   ];
