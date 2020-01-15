@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import _ from "lodash";
 import http from "../services/httpService";
 import { Redirect } from "react-router-dom";
 
 const ImageOrCategoryRoute = props => {
-  console.log("imageorcategor");
   const { id } = props.match.params;
 
   const [type, setType] = useState(null);
@@ -30,10 +28,6 @@ const ImageOrCategoryRoute = props => {
       setType(type || "category");
     })();
   }, [id]);
-
-  if (!type) {
-    return <span>{type}</span>;
-  }
 
   if (type === "category") {
     return <Redirect to={`/category/${id}`} />;
