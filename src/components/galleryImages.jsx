@@ -46,7 +46,8 @@ const GalleryImages = props => {
         const allImages = await http.getImages({ categoryId });
 
         const totalPages = Math.ceil(allImages.length / limit);
-        const valid = page >= 1 && page <= totalPages;
+        const valid =
+          allImages.length === 0 || (page >= 1 && page <= totalPages);
 
         if (!valid) {
           let to;
@@ -100,9 +101,13 @@ const GalleryImages = props => {
         currentPage={page}
       />
 
-      {images.map(({ img, title, id }) => (
-        <GalleryImage key={id} id={id} src={`/images${img}`} title={title} />
-      ))}
+      {images.length === 0 ? (
+        <span>No images found in this gallery.</span>
+      ) : (
+        images.map(({ img, title, id }) => (
+          <GalleryImage key={id} id={id} src={`/images${img}`} title={title} />
+        ))
+      )}
     </React.Fragment>
   );
 };
