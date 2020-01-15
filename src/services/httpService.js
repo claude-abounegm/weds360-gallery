@@ -7,7 +7,7 @@ const basePath = "http://localhost:3001";
 
 const imgsCache = {};
 
-function get(url, query) {
+function get(url, query = "") {
   if (_.isPlainObject(query)) {
     query = qs.stringify(query);
   }
@@ -16,7 +16,11 @@ function get(url, query) {
     url = `${url}/`;
   }
 
-  return axios.get(`${url}${query && `?${query}`}`);
+  if (query) {
+    query = `?${query}`;
+  }
+
+  return axios.get(`${url}${query}`);
 }
 
 export async function getImages(opts) {
@@ -48,11 +52,25 @@ export async function getImages(opts) {
   });
 }
 
+export async function getCategories() {
+  return get(`${basePath}/categories`).then(
+    ({ data: categories }) => categories
+  );
+}
+
+export async function getImage(imageId) {
+  return get(`${basePath}/images`, qs.stringify({ id: imageId })).then(
+    ({ data: images }) => images[0]
+  );
+}
+
 export default {
   get,
   post,
   put,
   patch,
   delete: $delete,
-  getImages
+  getImages,
+  getImage,
+  getCategories
 };

@@ -63,6 +63,7 @@ const GalleryImages = props => {
           setAllImages(allImages);
         }
       } catch (e) {
+        console.log(e);
         setError({ message: e.message });
       }
     }
@@ -79,7 +80,7 @@ const GalleryImages = props => {
   if (error) {
     const { to } = error;
 
-    let path = "/";
+    let path = "/category";
 
     if (to) {
       if (categoryId) {
@@ -105,7 +106,13 @@ const GalleryImages = props => {
         <span>No images found in this gallery.</span>
       ) : (
         images.map(({ img, title, id }) => (
-          <GalleryImage key={id} id={id} src={`/images${img}`} title={title} />
+          <GalleryImage
+            key={id}
+            id={id}
+            src={img}
+            basePath="/image"
+            title={title}
+          />
         ))
       )}
     </React.Fragment>

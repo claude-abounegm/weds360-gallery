@@ -2,7 +2,14 @@ import _ from "lodash";
 import React from "react";
 
 const Pagination = props => {
-  const { itemsCount, pageSize, currentPage, onPageChange } = props;
+  const {
+    itemsCount,
+    pageSize,
+    currentPage,
+    onPageChange,
+    pagesCountLeft = 9,
+    pagesCountRight = 2
+  } = props;
 
   const pagesCount = Math.ceil(itemsCount / pageSize);
 
@@ -33,7 +40,7 @@ const Pagination = props => {
       text: "← Previous",
       onPageChange: () => onPageChange(currentPage - 1)
     }),
-    ..._.range(1, Math.min(pagesCount + 1, 10)).map(page =>
+    ..._.range(1, Math.min(pagesCount + 1, pagesCountLeft + 1)).map(page =>
       paginationButton(page, {
         disabled: currentPage === page,
         onPageChange
@@ -42,9 +49,12 @@ const Pagination = props => {
   ];
 
   if (pagesCount > 10) {
+    const end = pagesCount + 1;
+    const start = end - pagesCountRight;
+
     pagination.push(
       <span key="seperator">...</span>,
-      ..._.range(pagesCount - 1, pagesCount + 1).map(page =>
+      ..._.range(start, end).map(page =>
         paginationButton(page, {
           disabled: currentPage === page,
           onPageChange
