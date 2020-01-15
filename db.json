@@ -4,6 +4,11 @@
       "id": 4,
       "title": "Wedding Ideas",
       "img": "/category/4/wedding_ideas.png"
+    },
+    {
+      "id": 5,
+      "title": "Other Ideas",
+      "img": "/category/5/other_ideas.png"
     }
   ],
   "images": [
@@ -2178,6 +2183,162 @@
       "id": 32,
       "img": "/category/4/wedding_cake_32.png",
       "title": "Wedding Cake"
+    },
+    {
+      "categoryId": 5,
+      "id": 397,
+      "img": "/category/4/wedding_details_397.png",
+      "title": "Wedding details"
+    },
+    {
+      "categoryId": 5,
+      "id": 396,
+      "img": "/category/4/goldmarble_wedding_cake_396.png",
+      "title": "Gold/marble wedding cake"
+    },
+    {
+      "categoryId": 5,
+      "id": 395,
+      "img": "/category/4/gold_frame_invitation_set_395.png",
+      "title": "Gold frame Invitation set"
+    },
+    {
+      "categoryId": 5,
+      "id": 394,
+      "img": "/category/4/beating_hearts_394.png",
+      "title": "Beating hearts"
+    },
+    {
+      "categoryId": 5,
+      "id": 393,
+      "img": "/category/4/peach_wonderland_393.png",
+      "title": "Peach wonderland"
+    },
+    {
+      "categoryId": 5,
+      "id": 54,
+      "img": "/category/4/bird_view_of_the_bridal_gown_54.png",
+      "title": "Bird view of the bridal gown"
+    },
+    {
+      "categoryId": 5,
+      "id": 53,
+      "img": "/category/4/floral_centerpiece_53.png",
+      "title": "Floral centerpiece"
+    },
+    {
+      "categoryId": 5,
+      "id": 52,
+      "img": "/category/4/paper_invitation_ideas_52.png",
+      "title": "Paper invitation ideas"
+    },
+    {
+      "categoryId": 5,
+      "id": 51,
+      "img": "/category/4/flat_shoes_as_wedding_giveaways_51.png",
+      "title": "Flat shoes as wedding giveaways?!"
+    },
+    {
+      "categoryId": 5,
+      "id": 50,
+      "img": "/category/4/wedding_on_the_beach_50.png",
+      "title": "Wedding on the beach"
+    },
+    {
+      "categoryId": 5,
+      "id": 49,
+      "img": "/category/4/morning_of_the_wedding_49.png",
+      "title": "Morning of the wedding"
+    },
+    {
+      "categoryId": 5,
+      "id": 48,
+      "img": "/category/4/old_is_still_and_always_will_be_gold_48.png",
+      "title": "Old is still and always will be gold"
+    },
+    {
+      "categoryId": 5,
+      "id": 47,
+      "img": "/category/4/wedding_day_gift_for_your_partner_47.png",
+      "title": "Wedding day gift for your partner"
+    },
+    {
+      "categoryId": 5,
+      "id": 46,
+      "img": "/category/4/fireworks_for_the_newlyweds_46.png",
+      "title": "Fireworks for the newlyweds"
+    },
+    {
+      "categoryId": 5,
+      "id": 45,
+      "img": "/category/4/lavish_white_bridal_car_45.png",
+      "title": "Lavish white bridal car"
+    },
+    {
+      "categoryId": 5,
+      "id": 44,
+      "img": "/category/4/luxurious_wedding_hall_44.png",
+      "title": "Luxurious wedding hall"
+    },
+    {
+      "categoryId": 5,
+      "id": 43,
+      "img": "/category/4/inscribed_mugs_for_wedding_giveaways_43.png",
+      "title": "Inscribed mugs for wedding giveaways"
+    },
+    {
+      "categoryId": 5,
+      "id": 42,
+      "img": "/category/4/white_wedding_gerb_42.png",
+      "title": "White wedding gerb"
+    },
+    {
+      "categoryId": 5,
+      "id": 41,
+      "img": "/category/4/candy_station_41.png",
+      "title": "Candy station"
+    },
+    {
+      "categoryId": 5,
+      "id": 40,
+      "img": "/category/4/wedding_hall_entrance_40.png",
+      "title": "Wedding hall entrance"
+    },
+    {
+      "categoryId": 5,
+      "id": 39,
+      "img": "/category/4/floral_wedding_cake_39.png",
+      "title": "Floral wedding cake"
+    },
+    {
+      "categoryId": 5,
+      "id": 38,
+      "img": "/category/4/take_a_vintage_ride_to_your_wedding_38.png",
+      "title": "Take a vintage ride to your wedding"
+    },
+    {
+      "categoryId": 5,
+      "id": 37,
+      "img": "/category/4/wedding_guestbook_37.png",
+      "title": "Wedding guestbook"
+    },
+    {
+      "categoryId": 5,
+      "id": 36,
+      "img": "/category/4/outdoor_wedding_venue_by_the_sea_36.png",
+      "title": "Outdoor wedding venue by the sea"
+    },
+    {
+      "categoryId": 5,
+      "id": 35,
+      "img": "/category/4/wedding_by_the_nile_35.png",
+      "title": "Wedding by the Nile"
+    },
+    {
+      "categoryId": 5,
+      "id": 34,
+      "img": "/category/4/sea_wedding_theme_34.png",
+      "title": "Sea Wedding Theme"
     }
   ]
 }

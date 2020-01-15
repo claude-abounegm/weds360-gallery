@@ -20,7 +20,7 @@ function get(url, query) {
 }
 
 export async function getImages(opts) {
-  const { page, limit, all: expand, force } = opts || {};
+  const { categoryId, page, limit, all: expand, force } = opts || {};
 
   let query = {};
   if (_.isNumber(page) && _.isNumber(limit)) {
@@ -32,13 +32,15 @@ export async function getImages(opts) {
     query._expand = "category";
   }
 
+  if (categoryId) {
+    query.categoryId = categoryId;
+  }
+
   query = qs.stringify(query);
 
   if (!force && imgsCache[query]) {
     return imgsCache[query];
   }
-
-  // console.log("service called", query);
 
   return get(`${basePath}/images`, query).then(({ data: images }) => {
     imgsCache[query] = images;
