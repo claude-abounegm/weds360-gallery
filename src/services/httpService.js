@@ -2,11 +2,25 @@ import _ from "lodash";
 import axios from "axios";
 import qs from "querystring";
 
-const { get, post, put, patch, delete: $delete } = axios;
+const { post, put, patch, delete: $delete } = axios;
 const basePath = "http://localhost:3001";
 
-export function getImages(opts) {
-  const { page, limit, all: expand } = opts || {};
+const imgsCache = {};
+
+function get(url, query) {
+  if (_.isPlainObject(query)) {
+    query = qs.stringify(query);
+  }
+
+  if (!url.endsWith("/")) {
+    url = `${url}/`;
+  }
+
+  return axios.get(`${url}${query && `?${query}`}`).then(({ data }) => data);
+}
+
+export async function getImages(opts) {
+  const { page, limit, all: expand, force } = opts || {};
 
   let query = {};
   if (_.isNumber(page) && _.isNumber(limit)) {
@@ -19,11 +33,17 @@ export function getImages(opts) {
   }
 
   query = qs.stringify(query);
-  if (query) {
-    query = `?${query}`;
+
+  if (!force && imgsCache[query]) {
+    return imgsCache[query];
   }
 
-  return get(`${basePath}/images/${query}`).then(({ data: images }) => images);
+  // console.log("service called", query);
+
+  return get(`${basePath}/images`, query).then(images => {
+    imgsCache[query] = images;
+    return images;
+  });
 }
 
 export default {
