@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 
-const Thumbnail = props => {
+const GalleryImage = props => {
   const { src, title, alt } = props;
 
   return (
@@ -14,4 +14,4 @@ const Thumbnail = props => {
   );
 };
 
-export default Thumbnail;
+export default GalleryImage;
