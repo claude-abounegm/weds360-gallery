@@ -6,22 +6,24 @@ const { get, post, put, patch, delete: $delete } = axios;
 const basePath = "http://localhost:3001";
 
 export function getImages(opts) {
-  const { page, limit } = opts;
+  const { page, limit, all: expand } = opts || {};
 
-  if (!_.isNumber(page)) {
-    throw new Error("page needs to be a number");
+  let query = {};
+  if (_.isNumber(page) && _.isNumber(limit)) {
+    const offset = (page - 1) * limit;
+    _.assign(query, { _limit: limit, _start: offset });
   }
 
-  if (!_.isNumber(limit)) {
-    throw new Error("limit needs to be a number");
+  if (expand) {
+    query._expand = "category";
   }
 
-  const offset = (page - 1) * limit;
-  const query = { _limit: limit, _start: offset };
+  query = qs.stringify(query);
+  if (query) {
+    query = `?${query}`;
+  }
 
-  return get(`${basePath}/images?${qs.stringify(query)}`).then(
-    ({ data: images }) => images
-  );
+  return get(`${basePath}/images/${query}`).then(({ data: images }) => images);
 }
 
 export default {
