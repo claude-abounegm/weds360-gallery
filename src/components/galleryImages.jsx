@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import qs from "querystring";
-import GalleryImage from "./GalleryImage";
-import Pagination from "./Pagination";
+import GalleryImage from "./galleryImage";
+import Pagination from "./pagination";
 import http from "../services/httpService";
 import { parseQueryString, maybeParseInt } from "../utils";
 import { Redirect } from "react-router-dom";
