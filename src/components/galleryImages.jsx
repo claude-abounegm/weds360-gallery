@@ -8,7 +8,11 @@ import { parseQueryString, maybeParseInt } from "../utils";
 import { Redirect } from "react-router-dom";
 
 const GalleryImages = props => {
-  const { category_id: categoryId } = props.match.params;
+  let { category_id: categoryId } = props.match.params;
+  if (categoryId === "all") {
+    categoryId = undefined;
+  }
+
   const parsedQueryString = parseQueryString(props.location.search);
 
   const { page, limit } = (data => {
@@ -41,7 +45,7 @@ const GalleryImages = props => {
   }
 
   useEffect(() => {
-    async function fetchData() {
+    (async () => {
       try {
         const allImages = await http.getImages({ categoryId });
 
@@ -63,12 +67,10 @@ const GalleryImages = props => {
           setAllImages(allImages);
         }
       } catch (e) {
-        console.log(e);
+        // console.log(e);
         setError({ message: e.message });
       }
-    }
-
-    fetchData();
+    })();
   }, [page, limit, categoryId, allImages]);
 
   useEffect(() => {

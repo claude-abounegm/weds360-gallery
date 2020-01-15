@@ -18,11 +18,12 @@ export const App = () => {
         <Route path="/:id([0-9]+)" component={ImageOrCategoryRoute} />
         <Route path="/categories" component={Categories} exact />
         <Route
-          path="/category/:category_id([0-9]*)"
+          path="/category/:category_id([0-9]+|all)"
           component={GalleryImages}
+          exact
         />
         <Route path="/image/:photo_id([0-9]*)" component={Image} />
-        <Redirect to="/category" />
+        <Redirect to="/category/all" />
       </Switch>
     </ThemeProvider>
   );
