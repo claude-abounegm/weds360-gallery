@@ -1,5 +1,5 @@
 import React from "react";
-import GalleryImages from "./components/GalleryImages";
+import GalleryImages from "./components/galleryImages";
 import { Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import "./scss/App.scss";
