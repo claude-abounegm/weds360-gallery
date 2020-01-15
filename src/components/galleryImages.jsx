@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import GalleryImage from "./galleryImage";
-import Pagination from "./pagination";
+import GalleryImage from "./GalleryImage";
+import Pagination from "./Pagination";
 import http from "../services/httpService";
 import { parseQueryString, maybeParseInt } from "../utils";
 
@@ -38,6 +38,7 @@ const GalleryImages = props => {
         onPageChange={handlePageChange}
         itemsCount={allImages.length}
         pageSize={limit}
+        currentPage={page}
       />
 
       {images.map(({ img, title, id }) => (
