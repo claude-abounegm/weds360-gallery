@@ -13,11 +13,9 @@ const Pagination = props => {
 
   const pagesCount = Math.ceil(itemsCount / pageSize);
 
-  console.log(itemsCount);
-
-  // if (pagesCount <= 1) {
-  //   return null;
-  // }
+  if (pagesCount === 0) {
+    return null;
+  }
 
   function paginationButton(page, opts) {
     const { text, disabled, onPageChange, key } = opts || {};
