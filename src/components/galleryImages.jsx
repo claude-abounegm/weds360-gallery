@@ -38,13 +38,6 @@ const GalleryImages = props => {
   }
 
   useEffect(() => {
-    if (isValidPage) {
-      http.getImages({ page, limit }).then(setImages);
-    }
-  }, [page, limit, isValidPage]);
-
-  useEffect(() => {
-    // console.log("refresh all images");
     http.getImages().then(allImages => {
       const totalPages = Math.ceil(allImages.length / limit);
       const isValid = page >= 1 && page <= totalPages;
@@ -55,6 +48,12 @@ const GalleryImages = props => {
       }
     });
   }, [page, limit]);
+
+  useEffect(() => {
+    if (isValidPage) {
+      http.getImages({ page, limit }).then(setImages);
+    }
+  }, [page, limit, isValidPage]);
 
   if (!isValidPage) {
     return <Redirect to="/?page=1" />;
