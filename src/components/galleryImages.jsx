@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import _ from "lodash";
 import qs from "querystring";
 import GalleryImage from "./galleryImage";
 import Pagination from "./pagination";
@@ -7,6 +8,7 @@ import { parseQueryString, maybeParseInt } from "../utils";
 import { Redirect } from "react-router-dom";
 
 const GalleryImages = props => {
+  const { category_id: categoryId } = props.match.params;
   const parsedQueryString = parseQueryString(props.location.search);
 
   const { page, limit } = (data => {
@@ -21,7 +23,7 @@ const GalleryImages = props => {
 
   const [images, setImages] = useState([]);
   const [allImages, setAllImages] = useState([]);
-  const [validaton, setValidation] = useState({ valid: true });
+  const [error, setError] = useState(null);
 
   function buildQueryString(page, limit) {
     let query = { page };
@@ -34,38 +36,54 @@ const GalleryImages = props => {
 
   function handlePageChange(page, replace) {
     const query = buildQueryString(page, parsedQueryString.limit);
-    props.history[replace ? "replace" : "push"](`/?${query}`);
+
+    props.history[replace ? "replace" : "push"](`?${query}`);
   }
 
   useEffect(() => {
-    http.getImages().then(allImages => {
-      const totalPages = Math.ceil(allImages.length / limit);
-      const valid = page >= 1 && page <= totalPages;
-      let to;
+    async function fetchData() {
+      try {
+        const allImages = await http.getImages({ categoryId });
 
-      if (!valid) {
-        if (page < 1) {
-          to = 1;
+        const totalPages = Math.ceil(allImages.length / limit);
+        const valid = page >= 1 && page <= totalPages;
+
+        if (!valid) {
+          let to;
+          if (page < 1) {
+            to = 1;
+          } else {
+            to = totalPages;
+          }
+
+          setError({ to });
         } else {
-          to = totalPages;
+          setError(null);
+          setAllImages(allImages);
         }
-
-        setValidation({ valid, to });
-      } else {
-        setValidation({ valid });
-        setAllImages(allImages);
+      } catch (e) {
+        setError({ message: e.message });
       }
-    });
-  }, [page, limit, allImages]);
+    }
+
+    fetchData();
+  }, [page, limit, categoryId, allImages]);
 
   useEffect(() => {
-    if (validaton.valid) {
-      http.getImages({ page, limit }).then(setImages);
+    if (!error) {
+      http.getImages({ page, limit, categoryId }).then(setImages, _.noop);
     }
-  }, [page, limit, validaton]);
+  }, [page, limit, error, categoryId]);
 
-  if (!validaton.valid) {
-    return <Redirect to={`/?page=${validaton.to}`} />;
+  if (error) {
+    const { to } = error;
+
+    let path = "/";
+    if (to) {
+      path = `/?page=${error.to}`;
+    }
+
+    return <Redirect to={path} />;
   }
 
   return (

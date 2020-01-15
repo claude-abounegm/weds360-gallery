@@ -12,7 +12,7 @@ export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Switch>
-        <Route path="/" component={GalleryImages} />
+        <Route path="/:category_id?" component={GalleryImages} />
       </Switch>
     </ThemeProvider>
   );
