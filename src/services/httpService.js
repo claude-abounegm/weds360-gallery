@@ -16,7 +16,7 @@ function get(url, query) {
     url = `${url}/`;
   }
 
-  return axios.get(`${url}${query && `?${query}`}`).then(({ data }) => data);
+  return axios.get(`${url}${query && `?${query}`}`);
 }
 
 export async function getImages(opts) {
@@ -40,7 +40,7 @@ export async function getImages(opts) {
 
   // console.log("service called", query);
 
-  return get(`${basePath}/images`, query).then(images => {
+  return get(`${basePath}/images`, query).then(({ data: images }) => {
     imgsCache[query] = images;
     return images;
   });

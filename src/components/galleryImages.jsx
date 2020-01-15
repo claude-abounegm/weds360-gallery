@@ -21,7 +21,7 @@ const GalleryImages = props => {
 
   const [images, setImages] = useState([]);
   const [allImages, setAllImages] = useState([]);
-  const [isValidPage, setIsValidPage] = useState(true);
+  const [validaton, setValidation] = useState({ valid: true });
 
   function buildQueryString(page, limit) {
     let query = { page };
@@ -40,23 +40,32 @@ const GalleryImages = props => {
   useEffect(() => {
     http.getImages().then(allImages => {
       const totalPages = Math.ceil(allImages.length / limit);
-      const isValid = page >= 1 && page <= totalPages;
+      const valid = page >= 1 && page <= totalPages;
+      let to;
 
-      setIsValidPage(isValid);
-      if (isValid) {
+      if (!valid) {
+        if (page < 1) {
+          to = 1;
+        } else {
+          to = totalPages;
+        }
+
+        setValidation({ valid, to });
+      } else {
+        setValidation({ valid });
         setAllImages(allImages);
       }
     });
-  }, [page, limit]);
+  }, [page, limit, allImages]);
 
   useEffect(() => {
-    if (isValidPage) {
+    if (validaton.valid) {
       http.getImages({ page, limit }).then(setImages);
     }
-  }, [page, limit, isValidPage]);
+  }, [page, limit, validaton]);
 
-  if (!isValidPage) {
-    return <Redirect to="/?page=1" />;
+  if (!validaton.valid) {
+    return <Redirect to={`/?page=${validaton.to}`} />;
   }
 
   return (
