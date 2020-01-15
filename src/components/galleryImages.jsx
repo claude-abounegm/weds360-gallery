@@ -1,30 +1,23 @@
-import _ from "lodash";
 import React, { useState, useEffect } from "react";
 import GalleryImage from "./galleryImage";
 import http from "../services/httpService";
-import qs from "querystring";
+import { parseQueryString, maybeParseInt } from "../utils";
 
 const GalleryImages = props => {
-  let { page = 1, limit = 9 } = props;
-  if (!_.isNumber(limit)) {
-    throw new Error("limit needs to be a number");
-  }
+  const { page, limit } = parseQueryString(props.location.search, data => {
+    const { page, limit } = data;
 
-  if (!_.isNumber(page)) {
-    throw new Error("page needs to be a number");
-  }
+    return {
+      ...data,
+      page: maybeParseInt(page) || 1,
+      limit: maybeParseInt(limit) || 9
+    };
+  });
 
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    const offset = (page - 1) * limit;
-
-    let query = { _limit: limit, _start: offset };
-
-    query = qs.stringify(query);
-    http
-      .get(`http://localhost:3001/images?${query}`)
-      .then(({ data: images }) => setImages(images));
+    http.getImages({ page, limit }).then(setImages);
   }, [page, limit]);
 
   return (
