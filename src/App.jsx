@@ -2,14 +2,13 @@ import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { Provider } from "react-redux";
-import { configureStore } from "./store";
+import store from "./store";
 import GalleryImages from "./components/galleryImages";
 import Image from "./components/image";
 import Categories from "./components/categories";
 import ImageOrCategoryRoute from "./components/imageOrCategoryRoute";
 import "./scss/App.scss";
 
-const store = configureStore();
 export const App = () => {
   const theme = {
     primary: "blue"

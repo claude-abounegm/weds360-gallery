@@ -11,7 +11,7 @@ const Categories = props => {
   }, []);
 
   return (
-    <React.Fragment>
+    <>
       {categories.map(({ img, id, ...rest }) => (
         <GalleryImage
           key={id}
@@ -21,7 +21,7 @@ const Categories = props => {
           {...rest}
         />
       ))}
-    </React.Fragment>
+    </>
   );
 };
 

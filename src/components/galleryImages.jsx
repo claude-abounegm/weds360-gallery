@@ -6,8 +6,15 @@ import Pagination from "./pagination";
 import http from "../services/httpService";
 import { parseQueryString, maybeParseInt } from "../utils";
 import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { loadImages } from "../features/imagesSlice";
 
 const GalleryImages = props => {
+  const {
+    loadImages,
+    images: { data: images }
+  } = props;
+
   let { category_id: categoryId } = props.match.params;
   if (categoryId === "all") {
     categoryId = undefined;
@@ -25,9 +32,7 @@ const GalleryImages = props => {
     };
   })(parsedQueryString);
 
-  const [images, setImages] = useState([]);
-  const [allImages, setAllImages] = useState([]);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
 
   function buildQueryString(page, limit) {
     let query = { page };
@@ -45,64 +50,68 @@ const GalleryImages = props => {
   }
 
   useEffect(() => {
-    (async () => {
-      try {
-        const allImages = await http.getImages({ categoryId });
+    loadImages({ page, limit, categoryId });
+  }, [page, limit, categoryId]);
 
-        const totalPages = Math.ceil(allImages.length / limit);
-        const valid =
-          allImages.length === 0 || (page >= 1 && page <= totalPages);
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const allImages = await http.getImages({ categoryId });
 
-        if (!valid) {
-          let to;
-          if (page < 1) {
-            to = 1;
-          } else {
-            to = totalPages;
-          }
+  //       const totalPages = Math.ceil(allImages.length / limit);
+  //       const valid =
+  //         allImages.length === 0 || (page >= 1 && page <= totalPages);
 
-          setError({ to });
-        } else {
-          setError(null);
-          setAllImages(allImages);
-        }
-      } catch (e) {
-        // console.log(e);
-        setError({ message: e.message });
-      }
-    })();
-  }, [page, limit, categoryId, allImages]);
+  //       if (!valid) {
+  //         let to;
+  //         if (page < 1) {
+  //           to = 1;
+  //         } else {
+  //           to = totalPages;
+  //         }
 
-  useEffect(() => {
-    if (!error) {
-      http.getImages({ page, limit, categoryId }).then(setImages, _.noop);
-    }
-  }, [page, limit, error, categoryId]);
+  //         setError({ to });
+  //       } else {
+  //         setError(null);
+  //         setAllImages(allImages);
+  //       }
+  //     } catch (e) {
+  //       // console.log(e);
+  //       setError({ message: e.message });
+  //     }
+  //   })();
+  // }, [page, limit, categoryId, allImages]);
 
-  if (error) {
-    const { to } = error;
+  // useEffect(() => {
+  //   if (!error) {
+  //     http.getImages({ page, limit, categoryId }).then(setImages, _.noop);
+  //   }
+  // }, [page, limit, error, categoryId]);
 
-    let path = "/category";
+  // if (error) {
+  //   const { to } = error;
 
-    if (to) {
-      if (categoryId) {
-        path = `${path}${categoryId}`;
-      }
+  //   let path = "/category";
 
-      path = `${path}/?page=${error.to}`;
-    }
+  //   if (to) {
+  //     if (categoryId) {
+  //       path = `${path}${categoryId}`;
+  //     }
 
-    return <Redirect to={path} />;
-  }
+  //     path = `${path}/?page=${error.to}`;
+  //   }
+
+  //   return <Redirect to={path} />;
+  // }
 
   return (
-    <React.Fragment>
-      <Pagination
+    <>
+      {/* <Pagination
         onPageChange={handlePageChange}
-        itemsCount={allImages.length}
+        itemsCount={0}
         pageSize={limit}
         currentPage={page}
-      />
+      /> */}
 
       {images.length === 0 ? (
         <span>No images found in this gallery.</span>
@@ -117,8 +126,14 @@ const GalleryImages = props => {
           />
         ))
       )}
-    </React.Fragment>
+    </>
   );
 };
 
-export default GalleryImages;
+const mapStateToProps = ({ images, error }) => ({ images, error });
+
+const mapDispatchToProps = dispatch => ({
+  loadImages: opts => dispatch(loadImages(opts))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(GalleryImages);
