@@ -4,10 +4,9 @@ import Pagination from "./pagination";
 import { parseQueryString, maybeParseInt } from "../utils";
 import { connect } from "react-redux";
 import { loadImages } from "../features/imagesSlice";
+import { Redirect } from "react-router-dom";
 
 const GalleryImages = props => {
-  const parsedQueryString = parseQueryString(props.location.search);
-
   const {
     location,
     loadImages,
@@ -25,18 +24,17 @@ const GalleryImages = props => {
   const { page, limit } = (({ page, limit }) => ({
     page: maybeParseInt(page) || 1,
     limit: maybeParseInt(limit) || 9
-  }))(parsedQueryString);
+  }))(parseQueryString(location.search));
 
-  function buildQueryString(page) {
+  function buildUrl(page) {
     const search = new URLSearchParams(location.search.slice(1));
     search.set("page", page);
     // search.set("limit", limit);
-    return search.toString();
+    return `${location.pathname}?${search.toString()}`;
   }
 
   function handlePageChange(page, replace) {
-    const query = buildQueryString(page);
-    props.history[replace ? "replace" : "push"](`?${query}`);
+    props.history[replace ? "replace" : "push"](buildUrl(page));
     return null;
   }
 
@@ -44,10 +42,12 @@ const GalleryImages = props => {
     loadImages({ page, limit, categoryId });
   }, [loadImages, page, limit, categoryId]);
 
-  if (page < 1) {
-    return handlePageChange(1);
-  } else if (page > totalPages) {
-    return handlePageChange(totalPages);
+  if (!images) {
+    return null;
+  }
+
+  if (page < 1 || page > totalPages) {
+    return <Redirect to={buildUrl(page)} />;
   }
 
   return (
