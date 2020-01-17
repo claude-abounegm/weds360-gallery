@@ -3,15 +3,12 @@ import React from "react";
 
 const Pagination = props => {
   const {
-    itemsCount,
-    pageSize,
-    currentPage,
-    onPageChange,
+    pagesCount = 1,
+    currentPage = 1,
     pagesCountLeft = 9,
-    pagesCountRight = 2
+    pagesCountRight = 2,
+    onPageChange
   } = props;
-
-  const pagesCount = Math.ceil(itemsCount / pageSize);
 
   if (pagesCount === 0) {
     return null;
@@ -34,7 +31,7 @@ const Pagination = props => {
   let pagination = [
     paginationButton(null, {
       key: "previous",
-      disabled: itemsCount === 0 || currentPage === 1,
+      disabled: currentPage === 1,
       text: "← Previous",
       onPageChange: () => onPageChange(currentPage - 1)
     }),
@@ -59,14 +56,12 @@ const Pagination = props => {
         })
       )
     );
-  } else if (itemsCount === 0) {
-    pagination.push(paginationButton(1, { disabled: true }));
   }
 
   pagination.push(
     paginationButton(null, {
       key: "next",
-      disabled: itemsCount === 0 || currentPage === pagesCount,
+      disabled: currentPage === pagesCount,
       text: "Next →",
       onPageChange: () => onPageChange(currentPage + 1)
     })
