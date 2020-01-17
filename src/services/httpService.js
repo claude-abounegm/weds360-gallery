@@ -52,11 +52,10 @@ export async function getImages(opts) {
   const { data: images, headers } = await get(`${basePath}/images`, query);
   let totalPages = 1;
 
-  if (page) {
+  try {
     const lastLink = /<([^>]+)>; rel="last"/.exec(headers["link"])[1];
-    const lastPage = +lastLink.match(/_page=([0-9]+)/)[1];
-    totalPages = lastPage;
-  }
+    totalPages = +lastLink.match(/_page=([0-9]+)/)[1];
+  } catch (e) {}
 
   const obj = {
     currentPage: 1,

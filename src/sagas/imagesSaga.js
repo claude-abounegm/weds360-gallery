@@ -17,6 +17,7 @@ export function* handleImagesLoad() {
 
     yield putAll([setError(null), setImages(images)]);
   } catch (error) {
+    console.log(error);
     yield put(setError(error.toString()));
   } finally {
     yield put(setLoading(false));

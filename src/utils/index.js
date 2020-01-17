@@ -13,7 +13,7 @@ export function maybeParseInt(str) {
  */
 export function parseQueryString(str, transform) {
   if (str.startsWith("?")) {
-    str = str.substring(1, str.length);
+    str = str.slice(1);
   }
 
   let obj = qs.parse(str);

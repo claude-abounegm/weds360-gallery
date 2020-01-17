@@ -5,7 +5,7 @@ const imagesSlice = createSlice({
   initialState: {
     opts: { page: 1, limit: 9 },
     pagination: { current: 1, total: 1 },
-    data: []
+    data: null
   },
   reducers: {
     loadImages: (state, { payload }) => {
