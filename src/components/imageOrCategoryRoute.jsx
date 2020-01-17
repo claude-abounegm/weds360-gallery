@@ -9,35 +9,39 @@ const ImageOrCategoryRoute = props => {
 
   useEffect(() => {
     (async () => {
-      let type;
-      try {
-        const images = await http.getImages({ categoryId: id });
+      let type = "notFound";
 
-        if (images.length > 0) {
-          type = "category";
-        }
-      } catch (e) {}
-
-      if (!type) {
-        try {
-          await http.getImage(id);
-          type = "image";
-        } catch (e) {}
+      if (await http.isValidCategory(id)) {
+        type = "category";
+      } else if (await http.isValidImage(id)) {
+        type = "image";
       }
 
-      setType(type || "category");
+      setType(type);
     })();
   }, [id]);
 
-  if (type === "category") {
-    return <Redirect to={`/category/${id}`} />;
+  if (!type) {
+    return null;
   }
 
-  if (type === "image") {
-    return <Redirect to={`/image/${id}`} />;
+  let redirectTo;
+
+  switch (type) {
+    case "category":
+      redirectTo = `/category/${id}`;
+      break;
+
+    case "image":
+      redirectTo = `/image/${id}`;
+      break;
+
+    default:
+      redirectTo = "/";
+      break;
   }
 
-  return <Redirect to="/" />;
+  return <Redirect to={redirectTo} />;
 };
 
 export default ImageOrCategoryRoute;

@@ -24,20 +24,23 @@ function get(url, query = "") {
 }
 
 export async function getImages(opts) {
-  const { categoryId, page, limit, all: expand, force } = opts || {};
+  const { categoryId, page = 1, limit, all: expand, force } = opts || {};
 
   let query = {};
-  if (_.isNumber(page) && _.isNumber(limit)) {
-    const offset = (page - 1) * limit;
-    _.assign(query, { _limit: limit, _start: offset });
+  if (categoryId) {
+    query.categoryId = categoryId;
+  }
+
+  if (_.isNumber(page)) {
+    query._page = page;
+  }
+
+  if (_.isNumber(limit)) {
+    query._limit = limit;
   }
 
   if (expand) {
     query._expand = "category";
-  }
-
-  if (categoryId) {
-    query.categoryId = categoryId;
   }
 
   query = qs.stringify(query);
@@ -46,10 +49,22 @@ export async function getImages(opts) {
     return imgsCache[query];
   }
 
-  return get(`${basePath}/images`, query).then(({ data: images }) => {
-    imgsCache[query] = images;
-    return images;
-  });
+  const { data: images, headers } = await get(`${basePath}/images`, query);
+  let totalPages = 1;
+
+  if (page) {
+    const lastLink = /<([^>]+)>; rel="last"/.exec(headers["link"])[1];
+    const lastPage = +lastLink.match(/_page=([0-9]+)/)[1];
+    totalPages = lastPage;
+  }
+
+  const obj = {
+    currentPage: 1,
+    totalPages,
+    images
+  };
+
+  return (imgsCache[query] = obj);
 }
 
 export async function getCategories() {
@@ -58,10 +73,34 @@ export async function getCategories() {
   );
 }
 
-export async function getImage(imageId) {
-  return get(`${basePath}/images`, qs.stringify({ id: imageId })).then(
-    ({ data: images }) => images[0]
+export async function getCategory(categoryId) {
+  return get(`${basePath}/categories/${categoryId}`).then(
+    ({ data: categories }) => categories
   );
+}
+
+export async function getImage(imageId) {
+  return get(`${basePath}/images/${imageId}`).then(
+    ({ data: images }) => images
+  );
+}
+
+export async function isValidCategory(categoryId) {
+  try {
+    await getCategory(categoryId);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+export async function isValidImage(imageId) {
+  try {
+    await getImage(imageId);
+    return true;
+  } catch (e) {
+    return false;
+  }
 }
 
 export default {
@@ -71,6 +110,9 @@ export default {
   patch,
   delete: $delete,
   getImages,
+  getCategories,
   getImage,
-  getCategories
+  getCategory,
+  isValidCategory,
+  isValidImage
 };
