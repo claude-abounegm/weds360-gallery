@@ -9,7 +9,7 @@ import Categories from "./components/categories";
 import ImageOrCategoryRoute from "./components/imageOrCategoryRoute";
 import "./scss/App.scss";
 
-export const App = () => {
+export const App = props => {
   const theme = {
     primary: "blue"
   };

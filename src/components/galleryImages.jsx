@@ -3,17 +3,16 @@ import GalleryImage from "./galleryImage";
 import Pagination from "./pagination";
 import { parseQueryString, maybeParseInt } from "../utils";
 import { connect } from "react-redux";
-import { loadImages } from "../features/imagesSlice";
+import { loadImages } from "../features/gallerySlice";
 import { Redirect } from "react-router-dom";
 
 const GalleryImages = props => {
   const {
+    isLoading,
+    error,
     location,
     loadImages,
-    images: {
-      data: images,
-      pagination: { total: totalPages }
-    }
+    gallery: { images, totalPages }
   } = props;
 
   let { category_id: categoryId } = props.match.params;
@@ -42,22 +41,26 @@ const GalleryImages = props => {
     loadImages({ page, limit, categoryId });
   }, [loadImages, page, limit, categoryId]);
 
+  if (error) {
+    const { to, message } = error;
+
+    if (to) {
+      return <Redirect to={buildUrl(to)} />;
+    } else if (message) {
+      return <span>Error: {message}</span>;
+    }
+  }
+
+  if (isLoading) {
+    return <span>Loading...</span>;
+  }
+
   if (!images) {
     return null;
   }
 
-  if (page < 1 || page > totalPages) {
-    return <Redirect to={buildUrl(page)} />;
-  }
-
   return (
     <>
-      <Pagination
-        pagesCount={totalPages}
-        currentPage={page}
-        onPageChange={handlePageChange}
-      />
-
       {images.length === 0 ? (
         <span>No images found in this gallery.</span>
       ) : (
@@ -71,11 +74,21 @@ const GalleryImages = props => {
           />
         ))
       )}
+
+      <Pagination
+        pagesCount={totalPages}
+        currentPage={page}
+        onPageChange={handlePageChange}
+      />
     </>
   );
 };
 
-const mapStateToProps = ({ images, error }) => ({ images, error });
+const mapStateToProps = ({ gallery, isLoading, error }) => ({
+  gallery,
+  isLoading,
+  error
+});
 
 const mapDispatchToProps = dispatch => ({
   loadImages: opts => dispatch(loadImages(opts))

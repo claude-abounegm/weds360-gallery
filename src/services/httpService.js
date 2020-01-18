@@ -50,10 +50,12 @@ export async function getImages(opts) {
   }
 
   const { data: images, headers } = await get(`${basePath}/images`, query);
-  let totalPages = 1;
+
+  let totalPages = null;
 
   try {
-    const lastLink = /<([^>]+)>; rel="last"/.exec(headers["link"])[1];
+    const link = headers["link"];
+    const lastLink = /<([^>]+)>; rel="last"/.exec(link)[1];
     totalPages = +lastLink.match(/_page=([0-9]+)/)[1];
   } catch (e) {}
 

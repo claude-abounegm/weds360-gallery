@@ -2,14 +2,12 @@ import { combineReducers } from "redux";
 
 import loadingReducer from "./loadingSlice";
 import errorReducer from "./errorSlice";
-import pageReducer from "./pageSlice";
-import imagesReducer from "./imagesSlice";
+import galleryReducer from "./gallerySlice";
 
 const rootReducer = combineReducers({
   isLoading: loadingReducer,
-  images: imagesReducer,
-  error: errorReducer,
-  page: pageReducer
+  gallery: galleryReducer,
+  error: errorReducer
 });
 
 export default rootReducer;
