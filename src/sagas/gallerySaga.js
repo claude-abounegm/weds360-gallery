@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { put, call, takeEvery, select, all } from "redux-saga/effects";
 import { loadImages, setGalleryData } from "../features/gallerySlice";
 import { setLoading } from "../features/loadingSlice";
@@ -20,7 +19,6 @@ export function* handleImagesLoad() {
 
     yield putAll([setError(null), setGalleryData({ images, totalPages })]);
   } catch (error) {
-    console.log(error);
     const err = { message: error.message };
 
     if (error instanceof InvalidPageError) {

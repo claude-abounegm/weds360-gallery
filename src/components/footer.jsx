@@ -1,9 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Anchor from "./../elements/Anchor";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+const FontAwesomeIconBrand = ({ icon }) => (
+  <FontAwesomeIcon icon={["fab", icon]} />
+);
+
+const FacebookIcon = () => <FontAwesomeIconBrand icon="facebook-f" />;
+const InstagramIcon = () => <FontAwesomeIconBrand icon="instagram" />;
 
 const Footer = () => {
-  return null;
-
   return (
     <footer id="footer">
       <div className="footer--background">
@@ -11,34 +18,36 @@ const Footer = () => {
           <h1 className="company--logo">Weds360</h1>
           <div className="social--media--links">
             <span>
-              <Link target="_blank" href="https://www.facebook.com/Weds360/">
-                <i className="fab fa-facebook-f"></i>
-              </Link>
+              <Anchor href="https://www.facebook.com/Weds360/">
+                <FacebookIcon />
+              </Anchor>
             </span>
 
             <span>
-              <Link target="_blank" href="https://www.instagram.com/weds360/">
-                <i className="fab fa-instagram"></i>
-              </Link>
+              <Anchor href="https://www.instagram.com/weds360/">
+                <InstagramIcon />
+              </Anchor>
             </span>
           </div>
         </div>
         <div className="text--center">
           © Copyright
-          <Link target="_blank" href="http://plus360.xyz/">
+          <Anchor href="http://plus360.xyz/">
             <strong>Plus360</strong>.
-          </Link>
+          </Anchor>
           All Rights Reserved
         </div>
         <div className="text--right">
           <ul>
             <li>
-              <a href="/pages/terms-conditions?locale=en">
+              <Anchor href="/pAnchorges/terms-conditions?locale=en">
                 Terms &amp; Conditions
-              </a>
+              </Anchor>
             </li>
             <li>
-              <a href="/pages/privacy-policy?locale=en">Privacy Policy</a>
+              <Anchor href="/pages/privacy-policy?locale=en">
+                Privacy Policy
+              </Anchor>
             </li>
           </ul>
         </div>

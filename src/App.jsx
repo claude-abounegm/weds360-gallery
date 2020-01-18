@@ -10,6 +10,9 @@ import ImageOrCategoryRoute from "./components/imageOrCategoryRoute";
 import Loader from "./components/loader";
 import Footer from "./components/footer";
 import styled from "styled-components";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+library.add(fab);
 
 const Wrapper = styled.div`
   * {
