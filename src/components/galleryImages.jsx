@@ -71,7 +71,12 @@ const GalleryImages = props => {
     loadImages({ page, limit, categoryId, search });
   }
 
-  const [search, setSearch] = useState(null);
+  function handleClear() {
+    setSearch("");
+    loadImages({ page, limit, categoryId, search: "" });
+  }
+
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     document.title += " | Gallery";
@@ -97,7 +102,12 @@ const GalleryImages = props => {
 
   return (
     <>
-      <input type="text" onChange={e => setSearch(e.target.value)}></input>
+      <input
+        type="text"
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+      ></input>
+      <button onClick={handleClear}>Clear</button>
       <button onClick={handleSearch}>Apply</button>
 
       <TestDiv>
