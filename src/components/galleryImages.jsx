@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import GalleryImage from "./galleryImage";
 import Pagination from "./pagination";
 import { parseQueryString, maybeParseInt } from "../utils";
@@ -67,6 +67,12 @@ const GalleryImages = props => {
     return null;
   }
 
+  function handleSearch() {
+    loadImages({ page, limit, categoryId, search });
+  }
+
+  const [search, setSearch] = useState(null);
+
   useEffect(() => {
     document.title += " | Gallery";
   }, []);
@@ -91,6 +97,9 @@ const GalleryImages = props => {
 
   return (
     <>
+      <input type="text" onChange={e => setSearch(e.target.value)}></input>
+      <button onClick={handleSearch}>Apply</button>
+
       <TestDiv>
         {images.length === 0 ? (
           <span>No images found in this gallery.</span>

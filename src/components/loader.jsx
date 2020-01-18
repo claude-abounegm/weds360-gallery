@@ -32,7 +32,7 @@ const Loader = props => {
   if (isLoading) {
     return (
       <LoaderDiv>
-        <img alt="Weds360 Logo" class="loader-logo" src="/logo.png" />
+        <img alt="Weds360 Logo" className="loader-logo" src="/logo.png" />
       </LoaderDiv>
     );
   }

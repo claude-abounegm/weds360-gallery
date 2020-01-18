@@ -24,7 +24,8 @@ function get(url, query = "") {
 }
 
 export async function getImages(opts) {
-  const { categoryId, page = 1, limit, all: expand, force } = opts || {};
+  const { categoryId, page = 1, limit, all: expand, force, search } =
+    opts || {};
 
   let query = {};
   if (categoryId) {
@@ -43,6 +44,10 @@ export async function getImages(opts) {
     query._expand = "category";
   }
 
+  if (search) {
+    query.title_like = search;
+  }
+
   query = qs.stringify(query);
 
   if (!force && imgsCache[query]) {
@@ -51,7 +56,9 @@ export async function getImages(opts) {
 
   const { data: images, headers } = await get(`${basePath}/images`, query);
 
-  let totalPages = null;
+  console.log(query, images);
+
+  let totalPages = 1;
 
   try {
     const link = headers["link"];
