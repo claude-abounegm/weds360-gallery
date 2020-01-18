@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const gallerySlice = createSlice({
   name: "gallery",
   initialState: {
-    opts: { page: 1, limit: 9 },
+    opts: null,
     totalPages: null,
     images: null
   },
