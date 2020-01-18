@@ -2,6 +2,8 @@ import _ from "lodash";
 import axios from "axios";
 import qs from "querystring";
 
+import { InvalidPageError } from "../errors";
+
 const { post, put, patch, delete: $delete } = axios;
 const basePath = "http://localhost:3001";
 
@@ -24,8 +26,12 @@ function get(url, query = "") {
 }
 
 export async function getImages(opts) {
-  const { categoryId, page = 1, limit, all: expand, force, search } =
+  const { categoryId, page = 1, limit = 10, all: expand, force, search } =
     opts || {};
+
+  if (page < 1) {
+    throw new InvalidPageError();
+  }
 
   let query = {};
   if (categoryId) {
@@ -56,15 +62,22 @@ export async function getImages(opts) {
 
   const { data: images, headers } = await get(`${basePath}/images`, query);
 
-  console.log(query, images);
-
-  let totalPages = 1;
+  let totalPages = null;
 
   try {
     const link = headers["link"];
     const lastLink = /<([^>]+)>; rel="last"/.exec(link)[1];
     totalPages = +lastLink.match(/_page=([0-9]+)/)[1];
   } catch (e) {}
+
+  if (totalPages === null) {
+    const totalCount = headers["x-total-count"];
+    totalPages = Math.ceil(totalCount / limit);
+  }
+
+  if (page > totalPages) {
+    throw new InvalidPageError();
+  }
 
   const obj = {
     currentPage: 1,

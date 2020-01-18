@@ -15,17 +15,8 @@ export function* handleImagesLoad() {
 
   try {
     yield put(setLoading(true));
-    const { page } = opts;
-
-    if (page < 1) {
-      throw new InvalidPageError();
-    }
 
     const { images, totalPages } = yield call(http.getImages, opts);
-
-    if (totalPages === null) {
-      throw new InvalidPageError();
-    }
 
     yield putAll([setError(null), setGalleryData({ images, totalPages })]);
   } catch (error) {
