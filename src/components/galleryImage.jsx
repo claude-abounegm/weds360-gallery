@@ -66,9 +66,9 @@ const GalleryImage = props => {
 
   return (
     <ResponsiveDiv>
-      {/* <div class="photo--container">
+      {/* <div className="photo--container">
         <div
-          class="bg-img"
+          className="bg-img"
           style={{ background: `url("${imgSrc}") no-repeat` }}
         >
           <img style={{ display: "none" }} src={imgSrc} alt="Medium" />
