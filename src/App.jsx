@@ -7,7 +7,8 @@ import GalleryImages from "./components/galleryImages";
 import Image from "./components/image";
 import Categories from "./components/categories";
 import ImageOrCategoryRoute from "./components/imageOrCategoryRoute";
-import "./scss/App.scss";
+import Loader from "./components/loader";
+import Footer from "./components/footer";
 
 export const App = props => {
   const theme = {
@@ -17,6 +18,7 @@ export const App = props => {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
+        <Loader />
         <Switch>
           <Route path="/:id([0-9]+)" component={ImageOrCategoryRoute} />
           <Route path="/categories" component={Categories} exact />
@@ -28,6 +30,7 @@ export const App = props => {
           <Route path="/image/:photo_id([0-9]*)" component={Image} />
           <Redirect to="/category/all" />
         </Switch>
+        <Footer />
       </ThemeProvider>
     </Provider>
   );

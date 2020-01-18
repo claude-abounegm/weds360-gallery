@@ -18,6 +18,7 @@ const ResponsiveDiv = styled.div`
 
 const PhotoContainer = styled.div`
   height: 100%;
+  width: 100%;
   margin: 0 auto;
   position: relative;
   padding: 5px;
@@ -39,6 +40,25 @@ const BackgroundImage = styled.div`
   }
 `;
 
+const PhotoDescription = styled.h3`
+  color: #000;
+  font-size: 17.3px;
+  font-weight: bold;
+  margin: 10px 0 15px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-height: 25px;
+  height: 50px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+`;
+
+const CustomLink = styled(Link)`
+  text-decoration: none;
+`;
+
 const GalleryImage = props => {
   const { basePath = "/", id, src, title, alt } = props;
 
@@ -56,14 +76,14 @@ const GalleryImage = props => {
         <h3>{title}</h3>
       </div> */}
 
-      <Link target="_blank" to={`${basePath}/${id}`}>
+      <CustomLink target="_blank" to={`${basePath}/${id}`}>
         <PhotoContainer>
           <BackgroundImage src={imgSrc}>
             <img src={`/images${src}`} alt={alt || title}></img>
           </BackgroundImage>
+          <PhotoDescription>{title}</PhotoDescription>
         </PhotoContainer>
-      </Link>
-      <h3>{title}</h3>
+      </CustomLink>
     </ResponsiveDiv>
   );
 };
