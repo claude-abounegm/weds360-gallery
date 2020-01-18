@@ -3,16 +3,6 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 
 const LoaderDiv = styled.div`
-  /* position: fixed;
-  
-  height: 2em;
-  width: 2em;
-  overflow: visible;
-  margin: auto;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0; */
   content: "";
   display: block;
   position: fixed;
@@ -50,8 +40,6 @@ const Loader = props => {
   return null;
 };
 
-const mapStateToProps = ({ isLoading }) => ({
-  isLoading
-});
+const mapStateToProps = ({ isLoading }) => ({ isLoading });
 
 export default connect(mapStateToProps)(Loader);

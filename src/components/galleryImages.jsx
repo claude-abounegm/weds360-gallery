@@ -5,14 +5,14 @@ import { parseQueryString, maybeParseInt } from "../utils";
 import { connect } from "react-redux";
 import { loadImages } from "../features/gallerySlice";
 import { Redirect } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-const clearFix = props => `
-content: " ";
-visibility: hidden;
-display: block;
-height: 0;
-clear: both;
+const clearFix = css`
+  content: " ";
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
 `;
 
 const TestDiv = styled.div`
@@ -66,6 +66,10 @@ const GalleryImages = props => {
     props.history[replace ? "replace" : "push"](buildUrl(page));
     return null;
   }
+
+  useEffect(() => {
+    document.title += " | Gallery";
+  }, []);
 
   useEffect(() => {
     loadImages({ page, limit, categoryId });
