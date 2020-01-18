@@ -7,23 +7,38 @@ import { loadImages } from "../features/gallerySlice";
 import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 
-const ClearFix = styled.div`
-  content: " ";
-  visibility: hidden;
-  display: block;
-  height: 0;
-  clear: both;
+const clearFix = props => `
+content: " ";
+visibility: hidden;
+display: block;
+height: 0;
+clear: both;
 `;
 
 const TestDiv = styled.div`
   * {
     box-sizing: border-box;
   }
+
+  width: 90%;
+
+  /* width: 90%; */
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* max-width: 1100px; */
+  flex-direction: column;
+  margin-top: 0;
+
+  margin: 30px auto 0;
+  font-family: "Lato", sans-serif;
+
+  &:after {
+    ${clearFix}
+  }
 `;
 
 const GalleryImages = props => {
   const {
-    isLoading,
     error,
     location,
     loadImages,
@@ -66,10 +81,6 @@ const GalleryImages = props => {
     }
   }
 
-  if (isLoading) {
-    return <span>Loading...</span>;
-  }
-
   if (!images) {
     return null;
   }
@@ -90,8 +101,6 @@ const GalleryImages = props => {
             />
           ))
         )}
-
-        <ClearFix />
       </TestDiv>
 
       <Pagination

@@ -3,6 +3,11 @@ import React from "react";
 
 import styled from "styled-components";
 
+const PaginationNav = styled.nav`
+  display: block;
+  text-align: center;
+`;
+
 const PaginationButton = styled.button`
   position: relative;
   float: left;
@@ -50,6 +55,10 @@ const PaginationNextButton = styled(PaginationButton)`
 
 const PaginationList = styled.ul`
   padding-bottom: 40px;
+  display: inline-block;
+  padding-left: 0;
+  margin: 20px 0;
+  border-radius: 4px;
 `;
 
 const PaginationItem = styled.li`
@@ -135,9 +144,9 @@ const Pagination = props => {
   );
 
   return (
-    <nav>
+    <PaginationNav>
       <PaginationList>{pagination}</PaginationList>
-    </nav>
+    </PaginationNav>
   );
 };
 
