@@ -53,7 +53,7 @@ const PaginationNextButton = styled(PaginationButton)`
   border-top-right-radius: 4px;
 `;
 
-const PaginationList = styled.ul`
+const PaginationUL = styled.ul`
   padding-bottom: 40px;
   display: inline-block;
   padding-left: 0;
@@ -61,7 +61,7 @@ const PaginationList = styled.ul`
   border-radius: 4px;
 `;
 
-const PaginationItem = styled.li`
+const PaginationLI = styled.li`
   display: inline;
 `;
 
@@ -88,7 +88,7 @@ const Pagination = props => {
     } = opts || {};
 
     return (
-      <PaginationItem key={key || page}>
+      <PaginationLI key={key || page}>
         <DefaultButton
           className={currentPage === page ? "active" : ""}
           disabled={disabled}
@@ -96,7 +96,7 @@ const Pagination = props => {
         >
           {text || page}
         </DefaultButton>
-      </PaginationItem>
+      </PaginationLI>
     );
   }
 
@@ -145,7 +145,7 @@ const Pagination = props => {
 
   return (
     <PaginationNav>
-      <PaginationList>{pagination}</PaginationList>
+      <PaginationUL>{pagination}</PaginationUL>
     </PaginationNav>
   );
 };
