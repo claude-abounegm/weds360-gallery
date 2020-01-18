@@ -20,6 +20,7 @@ export function* handleImagesLoad() {
 
     yield putAll([setError(null), setGalleryData({ images, totalPages })]);
   } catch (error) {
+    console.log(error);
     const err = { message: error.message };
 
     if (error instanceof InvalidPageError) {
