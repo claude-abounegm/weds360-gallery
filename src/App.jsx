@@ -9,6 +9,13 @@ import Categories from "./components/categories";
 import ImageOrCategoryRoute from "./components/imageOrCategoryRoute";
 import Loader from "./components/loader";
 import Footer from "./components/footer";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  * {
+    font-family: "Lato", sans-serif;
+  }
+`;
 
 export const App = props => {
   const theme = {
@@ -18,19 +25,21 @@ export const App = props => {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <Loader />
-        <Switch>
-          <Route path="/:id([0-9]+)" component={ImageOrCategoryRoute} />
-          <Route path="/categories" component={Categories} exact />
-          <Route
-            path="/category/:category_id([0-9]+|all)"
-            component={GalleryImages}
-            exact
-          />
-          <Route path="/image/:photo_id([0-9]*)" component={Image} />
-          <Redirect to="/category/all" />
-        </Switch>
-        <Footer />
+        <Wrapper>
+          <Loader />
+          <Switch>
+            <Route path="/:id([0-9]+)" component={ImageOrCategoryRoute} />
+            <Route path="/categories" component={Categories} exact />
+            <Route
+              path="/category/:category_id([0-9]+|all)"
+              component={GalleryImages}
+              exact
+            />
+            <Route path="/image/:photo_id([0-9]*)" component={Image} />
+            <Redirect to="/category/all" />
+          </Switch>
+          <Footer />
+        </Wrapper>
       </ThemeProvider>
     </Provider>
   );

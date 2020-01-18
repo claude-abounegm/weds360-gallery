@@ -37,6 +37,44 @@ const TestDiv = styled.div`
   }
 `;
 
+const FilterButton = styled.button`
+  vertical-align: middle;
+  padding: 0;
+  border: solid 1px #000;
+  width: 55px;
+  height: 21px;
+  margin-left: 3px;
+  font-size: 12px;
+  text-align: center;
+
+  padding-right: 10px;
+  padding-left: 10px;
+  height: 21px;
+  margin: 2px;
+
+  &:disabled {
+    cursor: not-allowed;
+    color: gray;
+  }
+`;
+
+const ClearButton = styled(FilterButton)`
+  background-color: #fff;
+  color: #000;
+`;
+
+const ApplyButton = styled(FilterButton)`
+  background-color: #000;
+  color: #fff;
+`;
+
+const SearchInput = styled.input`
+  width: 30%;
+  border: 1px solid black;
+  padding: 5px;
+  margin: 20px 2px;
+`;
+
 const GalleryImages = props => {
   const {
     error,
@@ -102,15 +140,19 @@ const GalleryImages = props => {
 
   return (
     <>
-      <input
+      <ClearButton disabled={search === ""} onClick={handleClear}>
+        Clear
+      </ClearButton>
+      <ApplyButton disabled={search === ""} onClick={handleSearch}>
+        Apply
+      </ApplyButton>
+      <br />
+      <SearchInput
         type="text"
         value={search}
+        placeholder="Search"
         onChange={e => setSearch(e.target.value)}
-      ></input>
-      <button disabled={search === ""} onClick={handleClear}>
-        Clear
-      </button>
-      <button onClick={handleSearch}>Apply</button>
+      ></SearchInput>
 
       <TestDiv>
         {images.length === 0 ? (
