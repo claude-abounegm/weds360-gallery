@@ -107,7 +107,9 @@ const GalleryImages = props => {
         value={search}
         onChange={e => setSearch(e.target.value)}
       ></input>
-      <button onClick={handleClear}>Clear</button>
+      <button disabled={search === ""} onClick={handleClear}>
+        Clear
+      </button>
       <button onClick={handleSearch}>Apply</button>
 
       <TestDiv>
