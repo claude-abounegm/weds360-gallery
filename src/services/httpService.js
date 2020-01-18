@@ -75,7 +75,7 @@ export async function getImages(opts) {
     totalPages = Math.ceil(totalCount / limit);
   }
 
-  if (page > totalPages) {
+  if (totalPages > 0 && page > totalPages) {
     throw new InvalidPageError();
   }
 
