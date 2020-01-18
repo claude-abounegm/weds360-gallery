@@ -5,6 +5,21 @@ import { parseQueryString, maybeParseInt } from "../utils";
 import { connect } from "react-redux";
 import { loadImages } from "../features/gallerySlice";
 import { Redirect } from "react-router-dom";
+import styled from "styled-components";
+
+const ClearFix = styled.div`
+  content: " ";
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
+`;
+
+const TestDiv = styled.div`
+  * {
+    box-sizing: border-box;
+  }
+`;
 
 const GalleryImages = props => {
   const {
@@ -61,19 +76,23 @@ const GalleryImages = props => {
 
   return (
     <>
-      {images.length === 0 ? (
-        <span>No images found in this gallery.</span>
-      ) : (
-        images.map(({ img, title, id }) => (
-          <GalleryImage
-            key={id}
-            id={id}
-            src={img}
-            basePath="/image"
-            title={title}
-          />
-        ))
-      )}
+      <TestDiv>
+        {images.length === 0 ? (
+          <span>No images found in this gallery.</span>
+        ) : (
+          images.map(({ img, title, id }) => (
+            <GalleryImage
+              key={id}
+              id={id}
+              src={img}
+              basePath="/image"
+              title={title}
+            />
+          ))
+        )}
+
+        <ClearFix />
+      </TestDiv>
 
       <Pagination
         pagesCount={totalPages}
