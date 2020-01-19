@@ -31,7 +31,7 @@
     "eject": "react-scripts eject",
     "json-server": "json-server --watch db.json --port 3001",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "serve": "serve -s build"
+    "serve": "serve -s -l 80 build"
   },
   "eslintConfig": {
     "extends": "react-app"
