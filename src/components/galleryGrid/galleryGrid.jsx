@@ -38,19 +38,15 @@ const GalleryGrid = props => {
 
   return (
     <GalleryGridDiv>
-      {images.length === 0 ? (
-        <span>No images found in this gallery.</span>
-      ) : (
-        images.map(({ img, title, id }) => (
-          <GalleryImage
-            key={id}
-            id={id}
-            src={img}
-            getUrl={getUrl}
-            title={title}
-          />
-        ))
-      )}
+      {images.map(({ img, title, id }) => (
+        <GalleryImage
+          key={id}
+          id={id}
+          src={img}
+          getUrl={getUrl}
+          title={title}
+        />
+      ))}
     </GalleryGridDiv>
   );
 };
