@@ -61,16 +61,16 @@ const CustomLink = styled(Link)`
 `;
 
 const GalleryImage = props => {
-  const { basePath = "/", id, src, title, alt } = props;
+  const { id, src, title, alt, getUrl } = props;
 
   const imgSrc = `/images${src}`;
 
   return (
     <ResponsiveDiv>
-      <CustomLink target="_blank" to={`${basePath}/${id}`}>
+      <CustomLink target="_blank" to={getUrl(id)}>
         <PhotoContainer>
           <BackgroundImage src={imgSrc}>
-            <img src={`/images${src}`} alt={alt || title}></img>
+            <img src={imgSrc} alt={alt || title}></img>
           </BackgroundImage>
 
           <PhotoDescription>{title}</PhotoDescription>

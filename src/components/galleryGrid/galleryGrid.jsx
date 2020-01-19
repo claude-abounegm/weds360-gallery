@@ -34,7 +34,7 @@ const GalleryGridDiv = styled.div`
 `;
 
 const GalleryGrid = props => {
-  const { images, basePath } = props;
+  const { images, getUrl } = props;
 
   return (
     <GalleryGridDiv>
@@ -46,7 +46,7 @@ const GalleryGrid = props => {
             key={id}
             id={id}
             src={img}
-            basePath={basePath}
+            getUrl={getUrl}
             title={title}
           />
         ))

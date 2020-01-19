@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import http from "../services/httpService";
 
-const ImageOrCategoryRoute = props => {
+const ImageOrGalleryRoute = props => {
   const { id } = props.match.params;
 
   const [type, setType] = useState(null);
@@ -29,7 +29,7 @@ const ImageOrCategoryRoute = props => {
 
   switch (type) {
     case "category":
-      redirectTo = `/category/${id}`;
+      redirectTo = `/gallery/?categoryId=${encodeURIComponent(id)}`;
       break;
 
     case "image":
@@ -44,4 +44,4 @@ const ImageOrCategoryRoute = props => {
   return <Redirect to={redirectTo} />;
 };
 
-export default ImageOrCategoryRoute;
+export default ImageOrGalleryRoute;
