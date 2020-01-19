@@ -42,7 +42,8 @@ const BackgroundImage = styled.div`
 
 const PhotoDescription = styled.h3`
   color: #000;
-  font-size: 17.3px;
+  font-family: Lato, sans-serif;
+  font-size: 17.3px !important;
   font-weight: bold;
   margin: 10px 0 15px;
   max-width: 100%;
@@ -66,21 +67,12 @@ const GalleryImage = props => {
 
   return (
     <ResponsiveDiv>
-      {/* <div className="photo--container">
-        <div
-          className="bg-img"
-          style={{ background: `url("${imgSrc}") no-repeat` }}
-        >
-          <img style={{ display: "none" }} src={imgSrc} alt="Medium" />
-        </div>
-        <h3>{title}</h3>
-      </div> */}
-
       <CustomLink target="_blank" to={`${basePath}/${id}`}>
         <PhotoContainer>
           <BackgroundImage src={imgSrc}>
             <img src={`/images${src}`} alt={alt || title}></img>
           </BackgroundImage>
+
           <PhotoDescription>{title}</PhotoDescription>
         </PhotoContainer>
       </CustomLink>

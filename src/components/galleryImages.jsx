@@ -1,42 +1,12 @@
 import React, { useEffect, useState } from "react";
-import GalleryImage from "./galleryImage";
 import Pagination from "./pagination";
 import { parseQueryString, maybeParseInt } from "../utils";
 import { connect } from "react-redux";
 import { loadImages } from "../features/gallerySlice";
+import { setAppTitle } from "../features/titleSlice";
 import { Redirect } from "react-router-dom";
-import styled, { css } from "styled-components";
 import Filters from "./filters";
-
-const clearFix = css`
-  content: " ";
-  visibility: hidden;
-  display: block;
-  height: 0;
-  clear: both;
-`;
-
-const GalleryGrid = styled.div`
-  * {
-    box-sizing: border-box;
-  }
-
-  width: 90%;
-
-  /* width: 90%; */
-  /* display: flex; */
-  /* flex-direction: row; */
-  /* max-width: 1100px; */
-  flex-direction: column;
-  margin-top: 0;
-
-  margin: 30px auto 0;
-  font-family: "Lato", sans-serif;
-
-  &:after {
-    ${clearFix}
-  }
-`;
+import GalleryGrid from "./galleryGrid";
 
 const GalleryImages = props => {
   const {
@@ -44,7 +14,8 @@ const GalleryImages = props => {
     location,
     loadImages,
     history,
-    gallery: { images, totalPages }
+    gallery: { images, totalPages },
+    setAppTitle
   } = props;
 
   let { category_id: categoryId } = props.match.params;
@@ -74,12 +45,14 @@ const GalleryImages = props => {
   }
 
   useEffect(() => {
-    document.title += " | Gallery";
+    setAppTitle("Gallery");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     loadImages({ page, limit, categoryId });
-  }, [loadImages, page, limit, categoryId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, limit, categoryId]);
 
   if (error) {
     const { to, message } = error;
@@ -99,21 +72,7 @@ const GalleryImages = props => {
     <>
       <Filters onSearch={handleSearch} />
 
-      <GalleryGrid>
-        {images.length === 0 ? (
-          <span>No images found in this gallery.</span>
-        ) : (
-          images.map(({ img, title, id }) => (
-            <GalleryImage
-              key={id}
-              id={id}
-              src={img}
-              basePath="/image"
-              title={title}
-            />
-          ))
-        )}
-      </GalleryGrid>
+      <GalleryGrid images={images} basePath="/image" />
 
       <Pagination
         pagesCount={totalPages}
@@ -131,7 +90,8 @@ const mapStateToProps = ({ gallery, isLoading, error }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  loadImages: opts => dispatch(loadImages(opts))
+  loadImages: opts => dispatch(loadImages(opts)),
+  setAppTitle: title => dispatch(setAppTitle(title))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GalleryImages);
