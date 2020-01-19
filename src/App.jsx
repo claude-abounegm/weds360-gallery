@@ -16,10 +16,13 @@ import Loader from "./components/loader";
 import Footer from "./components/footer";
 import ScrollToTop from "./components/scrollToTop";
 
+import "./scss/App.scss";
+
 library.add(fab, fas);
 
 const Wrapper = styled.div`
   * {
+    font-family: Lato, sans-serif;
     /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
     /* font-size: 14px; */
     /* line-height: 1.428571429; */
@@ -48,8 +51,8 @@ export const App = props => {
             <Route path="/image/:photo_id([0-9]*)" component={Image} />
             <Redirect to="/categories" />
           </Switch>
-          <Footer />
         </Wrapper>
+        <Footer />
       </ThemeProvider>
     </Provider>
   );
