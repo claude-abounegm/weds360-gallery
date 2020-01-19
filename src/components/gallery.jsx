@@ -108,9 +108,8 @@ const Gallery = props => {
   );
 };
 
-const mapStateToProps = ({ gallery, isLoading, error }) => ({
+const mapStateToProps = ({ gallery, error }) => ({
   gallery,
-  isLoading,
   error
 });
 

@@ -67,7 +67,7 @@ const GalleryImage = props => {
 
   return (
     <ResponsiveDiv>
-      <CustomLink target="_blank" to={getUrl(id)}>
+      <CustomLink to={getUrl(id)}>
         <PhotoContainer>
           <BackgroundImage src={imgSrc}>
             <img src={imgSrc} alt={alt || title}></img>
