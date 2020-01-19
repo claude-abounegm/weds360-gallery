@@ -20,7 +20,7 @@ const Gallery = props => {
     location,
     loadImages,
     history,
-    gallery: { images, totalPages },
+    gallery: { images, totalPages, category },
     setAppTitle
   } = props;
 
@@ -73,10 +73,11 @@ const Gallery = props => {
     return null;
   }
 
-  const breadCrumbItems = [
-    { href: "/gallery", title: "Gallery" },
-    { title: "Category Name" }
-  ];
+  const breadCrumbItems = [{ href: "/gallery", title: "Gallery" }];
+
+  if (categoryId && category) {
+    breadCrumbItems.push({ title: category.title });
+  }
 
   return (
     <>
