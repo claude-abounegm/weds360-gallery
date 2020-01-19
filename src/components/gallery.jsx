@@ -72,6 +72,10 @@ const Gallery = props => {
     setSearch(search);
   }
 
+  function handleClear() {
+    handleSearch("");
+  }
+
   useEffect(() => {
     setAppTitle("Gallery");
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -108,7 +112,7 @@ const Gallery = props => {
 
       <PhotosWrapper>
         <FiltersContainer>
-          <Search onSearch={handleSearch} />
+          <Search onClear={handleClear} onSearch={handleSearch} />
         </FiltersContainer>
 
         <PhotosContainer>

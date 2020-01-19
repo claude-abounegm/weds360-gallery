@@ -46,7 +46,7 @@ const SearchInput = styled.input`
 `;
 
 const Search = props => {
-  const { onSearch } = props;
+  const { onSearch, onClear } = props;
 
   const [value, setValue] = useState("");
 
@@ -56,7 +56,7 @@ const Search = props => {
 
   function handleClear() {
     setValue("");
-    onSearch("");
+    onClear();
   }
 
   function handleSearch() {
