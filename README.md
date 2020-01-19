@@ -7,9 +7,9 @@ Gallery implementation of weds360.com in React.
 This project depends on:
 
 - React
-- React Toolkit
 - React DOM Router
 - Redux
+- Redux Toolkit
 - Redux Saga
 - Styled Components
 - Axios
