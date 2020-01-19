@@ -38,14 +38,18 @@ const ToTopIcon = styled(FontAwesomeIcon)`
   color: #024d4c;
 `;
 
-const GoToTop = props => {
-  const { scrollStepInPx = 50, delayInMs = 15 } = props;
+const ScrollToTop = props => {
+  const {
+    scrollStepInPx = 50,
+    delayInMs = 15,
+    visibleOffsetInPx = 104
+  } = props;
 
   const [hidden, setHidden] = useState(true);
 
   function handleScroll() {
     const offset = window.pageYOffset;
-    setHidden(offset <= 104);
+    setHidden(offset <= visibleOffsetInPx);
   }
 
   useEffect(() => {
@@ -54,12 +58,14 @@ const GoToTop = props => {
 
   function scrollToTop() {
     const interval = setInterval(() => {
-      if (window.pageYOffset === 0) {
+      const offset = window.pageYOffset;
+
+      if (offset === 0) {
         clearInterval(interval);
         return;
       }
 
-      window.scroll(0, window.pageYOffset - scrollStepInPx);
+      window.scroll(0, offset - scrollStepInPx);
     }, delayInMs);
   }
 
@@ -79,4 +85,4 @@ const GoToTop = props => {
   );
 };
 
-export default GoToTop;
+export default ScrollToTop;

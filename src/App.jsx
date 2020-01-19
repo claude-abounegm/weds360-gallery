@@ -20,9 +20,9 @@ library.add(fab, fas);
 
 const Wrapper = styled.div`
   * {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.428571429;
+    /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
+    /* font-size: 14px; */
+    /* line-height: 1.428571429; */
   }
 `;
 
@@ -46,7 +46,7 @@ export const App = props => {
               exact
             />
             <Route path="/image/:photo_id([0-9]*)" component={Image} />
-            <Redirect to="/category/all" />
+            <Redirect to="/categories" />
           </Switch>
           <Footer />
         </Wrapper>

@@ -5,6 +5,7 @@ export const A = styled.a`
   color: #337ab7;
   text-decoration: none;
   background-color: transparent;
+  font-size: 14px;
 
   &:active,
   &:hover {
