@@ -12,6 +12,7 @@ import { setAppTitle } from "../features/titleSlice";
 import { Redirect } from "react-router-dom";
 import Filters from "./filters";
 import GalleryGrid from "./galleryGrid";
+import BreadCrumb from "./breadCrumb";
 
 const Gallery = props => {
   const {
@@ -72,8 +73,14 @@ const Gallery = props => {
     return null;
   }
 
+  const breadCrumbItems = [
+    { href: "/gallery", title: "Gallery" },
+    { title: "Category Name" }
+  ];
+
   return (
     <>
+      <BreadCrumb items={breadCrumbItems} />
       <Filters onSearch={handleSearch} />
 
       {images.length === 0 && (
