@@ -9,6 +9,12 @@ import {
   PaginationNextButton
 } from "./../elements/Pagination";
 
+const Seperator = () => (
+  <PaginationButton disabled key="seperator">
+    ...
+  </PaginationButton>
+);
+
 const Pagination = props => {
   const {
     pagesCount = 1,
@@ -51,24 +57,65 @@ const Pagination = props => {
       text: "← Previous",
       onPageChange: () => onPageChange(currentPage - 1),
       DefaultButton: PaginationPreviousButton
-    }),
-    ..._.range(1, Math.min(pagesCount + 1, pagesCountLeft + 1)).map(page =>
+    })
+  ];
+
+  // pagination.push(
+  //   ..._.range(1, Math.min(pagesCount + 1, pagesCountLeft + 1)).map(page =>
+  //     paginationButton(page, {
+  //       disabled: currentPage === page,
+  //       onPageChange
+  //     })
+  //   )
+  // );
+
+  const before = Math.max(1, currentPage - 4);
+  const after = Math.min(currentPage + 4, pagesCount - 2);
+
+  if (currentPage < 9) {
+    pagination.push(
+      ..._.range(1, before).map(page =>
+        paginationButton(page, {
+          disabled: currentPage === page,
+          onPageChange
+        })
+      )
+    );
+  } else {
+    pagination.push(
+      ..._.range(1, 3).map(page =>
+        paginationButton(page, {
+          disabled: currentPage === page,
+          onPageChange
+        })
+      ),
+      <Seperator />
+    );
+  }
+
+  pagination.push(
+    ..._.range(before, after + 1).map(page =>
       paginationButton(page, {
         disabled: currentPage === page,
         onPageChange
       })
     )
-  ];
+  );
 
-  if (pagesCount > 10) {
-    const end = pagesCount + 1;
-    const start = end - pagesCountRight;
-
+  const remainingRight = pagesCount - after;
+  if (remainingRight <= 3) {
     pagination.push(
-      <PaginationButton disabled key="seperator">
-        ...
-      </PaginationButton>,
-      ..._.range(start, end).map(page =>
+      ..._.range(after + 1, pagesCount + 1).map(page =>
+        paginationButton(page, {
+          disabled: currentPage === page,
+          onPageChange
+        })
+      )
+    );
+  } else {
+    pagination.push(
+      <Seperator />,
+      ..._.range(pagesCount - 1, pagesCount + 1).map(page =>
         paginationButton(page, {
           disabled: currentPage === page,
           onPageChange
@@ -76,6 +123,21 @@ const Pagination = props => {
       )
     );
   }
+
+  // if (pagesCount > 10) {
+  //   const end = pagesCount + 1;
+  //   const start = end - pagesCountRight;
+
+  //   pagination.push(
+  //     <Seperator />,
+  //     ..._.range(start, end).map(page =>
+  //       paginationButton(page, {
+  //         disabled: currentPage === page,
+  //         onPageChange
+  //       })
+  //     )
+  //   );
+  // }
 
   pagination.push(
     paginationButton(null, {
