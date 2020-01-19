@@ -26,6 +26,7 @@ export function parseQueryString(str, transform) {
 }
 
 /**
+ * Builds a URL based on the current location persisting all components of the URL.
  *
  * @param {{ search: string; pathname: string;}} location
  * @param {{ [key: string]: string; }} query any key with undefined values will be deleted from the search query if it exists

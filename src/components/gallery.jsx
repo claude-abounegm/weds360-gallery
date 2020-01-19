@@ -75,7 +75,7 @@ const Gallery = props => {
 
   const breadCrumbItems = [{ href: "/gallery", title: "Gallery" }];
 
-  if (categoryId && category) {
+  if (category) {
     breadCrumbItems.push({ title: category.title });
   }
 
@@ -88,7 +88,7 @@ const Gallery = props => {
         <>
           <br />
           <span>
-            No images found in this gallery.{" "}
+            No images found.{" "}
             {search && "Please try to widen your search query and try again."}
           </span>
         </>

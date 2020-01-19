@@ -1,4 +1,5 @@
 import { put, call, takeEvery, select, all } from "redux-saga/effects";
+import _ from "lodash";
 
 import { loadImages, setGalleryData } from "../features/gallerySlice";
 import { setLoading } from "../features/loadingSlice";
@@ -11,7 +12,7 @@ function putAll(actions) {
 }
 
 export function* handleImagesLoad() {
-  const { opts, categoryId: oldCategoryId } = yield select(
+  const { opts, category: { id: oldCategoryId } = {} } = yield select(
     ({ gallery }) => gallery
   );
 
@@ -26,10 +27,9 @@ export function* handleImagesLoad() {
 
     const { images, totalPages } = yield call(http.getImages, opts);
 
-    yield putAll([
-      setError(null),
-      setGalleryData({ images, totalPages, ...galleryData })
-    ]);
+    _.assign(galleryData, { images, totalPages });
+
+    yield putAll([setError(null), setGalleryData(galleryData)]);
   } catch (error) {
     const err = { message: error.message };
 
