@@ -39,10 +39,9 @@ const SearchInput = styled.input`
 `;
 
 const Filters = props => {
-  const { onClear, onSearch } = props;
+  const { onSearch } = props;
 
   const [value, setValue] = useState("");
-  //   const [searched, setSearched] = useState(false);
 
   function handleChange(e) {
     setValue(e.target.value);
@@ -50,14 +49,13 @@ const Filters = props => {
 
   function handleClear() {
     setValue("");
-    onClear();
+    onSearch("");
   }
 
   function handleSearch() {
     onSearch(value);
   }
 
-  // search === ""
   return (
     <>
       <ClearButton onClick={handleClear}>Clear</ClearButton>

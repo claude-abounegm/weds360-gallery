@@ -43,6 +43,7 @@ const GalleryImages = props => {
     error,
     location,
     loadImages,
+    history,
     gallery: { images, totalPages }
   } = props;
 
@@ -64,16 +65,12 @@ const GalleryImages = props => {
   }
 
   function handlePageChange(page, replace) {
-    props.history[replace ? "replace" : "push"](buildUrl(page));
+    history[replace ? "replace" : "push"](buildUrl(page));
     return null;
   }
 
   function handleSearch(search) {
     loadImages({ page, limit, categoryId, search });
-  }
-
-  function handleClear() {
-    loadImages({ page, limit, categoryId, search: "" });
   }
 
   useEffect(() => {
@@ -100,7 +97,7 @@ const GalleryImages = props => {
 
   return (
     <>
-      <Filters onClear={handleClear} onSearch={handleSearch} />
+      <Filters onSearch={handleSearch} />
 
       <GalleryGrid>
         {images.length === 0 ? (
