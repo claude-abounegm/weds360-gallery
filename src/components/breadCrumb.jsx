@@ -51,12 +51,8 @@ const Separator = styled.span`
   margin: 0 7.5px;
 `;
 
-const BreadCrumb = () => {
-  const items = [
-    { href: "/gallery", title: "Gallery" },
-    { href: "/gallery/?categoryId=4", title: "Wedding Ideas" },
-    { title: "Wedding Details" }
-  ];
+const BreadCrumb = props => {
+  const { items } = props;
 
   const parts = [];
 
