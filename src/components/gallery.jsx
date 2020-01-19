@@ -13,7 +13,7 @@ import { Redirect } from "react-router-dom";
 import Filters from "./filters";
 import GalleryGrid from "./galleryGrid";
 
-const GalleryImages = props => {
+const Gallery = props => {
   const {
     error,
     location,
@@ -94,4 +94,4 @@ const mapDispatchToProps = dispatch => ({
   setAppTitle: title => dispatch(setAppTitle(title))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(GalleryImages);
+export default connect(mapStateToProps, mapDispatchToProps)(Gallery);

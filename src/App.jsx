@@ -8,10 +8,10 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 
 import styled from "styled-components";
 import store from "./store";
-import GalleryImages from "./components/galleryImages";
+import Gallery from "./components/gallery";
 import Image from "./components/image";
 import Categories from "./components/categories";
-import ImageOrCategoryRoute from "./components/imageOrCategoryRoute";
+import ImageOrGalleryRoute from "./components/imageOrGalleryRoute";
 import Loader from "./components/loader";
 import Footer from "./components/footer";
 import ScrollToTop from "./components/scrollToTop";
@@ -41,11 +41,11 @@ export const App = props => {
           <Loader />
           <ScrollToTop />
           <Switch>
-            <Route path="/:id([0-9]+)" component={ImageOrCategoryRoute} />
+            <Route path="/:id([0-9]+)" component={ImageOrGalleryRoute} />
             <Route path="/categories" component={Categories} exact />
             <Route
               path="/category/:category_id([0-9]+|all)"
-              component={GalleryImages}
+              component={Gallery}
               exact
             />
             <Route path="/image/:photo_id([0-9]*)" component={Image} />
