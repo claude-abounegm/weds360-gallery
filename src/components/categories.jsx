@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import _ from "lodash";
+
 import http from "../services/httpService";
 import GalleryGrid from "./galleryGrid";
 import { setAppTitle } from "../features/titleSlice";
-import { connect } from "react-redux";
 
 const Categories = props => {
   const { setAppTitle } = props;

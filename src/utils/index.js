@@ -25,7 +25,30 @@ export function parseQueryString(str, transform) {
   return obj;
 }
 
+/**
+ *
+ * @param {{ search: string; pathname: string;}} location
+ * @param {{ [key: string]: string; }} query any key with undefined values will be deleted from the search query if it exists
+ */
+export function buildUrlFromLocation(location, query = {}) {
+  const search = new URLSearchParams(location.search.slice(1));
+  for (const [key, value] of _.toPairs(query)) {
+    if (_.isUndefined(value)) {
+      if (search.has(key)) {
+        search.delete(key);
+      }
+
+      continue;
+    }
+
+    search.set(key, value);
+  }
+
+  return `${location.pathname}?${search.toString()}`;
+}
+
 export default {
   maybeParseInt,
-  parseQueryString
+  parseQueryString,
+  buildUrlFromLocation
 };

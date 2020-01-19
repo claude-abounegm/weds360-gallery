@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import styled from "styled-components";
 import Anchor from "../elements/Anchor";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const GoToTopAnchor = styled(Anchor)`
   opacity: 1;
@@ -54,6 +55,7 @@ const ScrollToTop = props => {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function scrollToTop() {

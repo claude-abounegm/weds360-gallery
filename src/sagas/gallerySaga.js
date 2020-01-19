@@ -1,4 +1,5 @@
 import { put, call, takeEvery, select, all } from "redux-saga/effects";
+
 import { loadImages, setGalleryData } from "../features/gallerySlice";
 import { setLoading } from "../features/loadingSlice";
 import { setError } from "../features/errorSlice";

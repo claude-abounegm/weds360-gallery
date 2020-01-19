@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import http from "../services/httpService";
 import { Redirect } from "react-router-dom";
+import http from "../services/httpService";
 
 const ImageOrCategoryRoute = props => {
   const { id } = props.match.params;

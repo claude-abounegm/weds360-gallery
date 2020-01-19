@@ -1,7 +1,7 @@
 import React from "react";
-import Anchor from "./../elements/Anchor";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import Anchor from "./../elements/Anchor";
 
 const FontAwesomeIconBrand = ({ icon }) => (
   <FontAwesomeIcon icon={["fab", icon]} />

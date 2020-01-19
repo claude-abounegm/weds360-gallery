@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from "react";
-import Pagination from "./pagination";
-import { parseQueryString, maybeParseInt } from "../utils";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
+
+import Pagination from "./pagination";
+import {
+  parseQueryString,
+  maybeParseInt,
+  buildUrlFromLocation
+} from "../utils";
 import { loadImages } from "../features/gallerySlice";
 import { setAppTitle } from "../features/titleSlice";
 import { Redirect } from "react-router-dom";
@@ -28,15 +33,10 @@ const GalleryImages = props => {
     limit: maybeParseInt(limit) || 9
   }))(parseQueryString(location.search));
 
-  function buildUrl(page) {
-    const search = new URLSearchParams(location.search.slice(1));
-    search.set("page", page);
-    // search.set("limit", limit);
-    return `${location.pathname}?${search.toString()}`;
-  }
-
   function handlePageChange(page, replace) {
-    history[replace ? "replace" : "push"](buildUrl(page));
+    history[replace ? "replace" : "push"](
+      buildUrlFromLocation(location, { page })
+    );
     return null;
   }
 
@@ -58,7 +58,7 @@ const GalleryImages = props => {
     const { to, message } = error;
 
     if (to) {
-      return <Redirect to={buildUrl(to)} />;
+      return <Redirect to={buildUrlFromLocation(location, { page: to })} />;
     } else if (message) {
       return <span>Error: {message}</span>;
     }

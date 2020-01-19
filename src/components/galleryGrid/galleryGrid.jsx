@@ -1,8 +1,7 @@
 import React from "react";
+import styled, { css } from "styled-components";
 
 import GalleryImage from "./galleryGridImage";
-
-import styled, { css } from "styled-components";
 
 const clearFix = css`
   content: " ";
