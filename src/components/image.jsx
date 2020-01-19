@@ -26,11 +26,19 @@ const Image = props => {
     return null;
   }
 
-  const { img, title } = image;
+  const {
+    img,
+    title,
+    categoryId,
+    category: { title: categoryTitle }
+  } = image;
 
   const breadCrumbItems = [
     { href: "/gallery", title: "Gallery" },
-    { href: "/gallery", title: "Wedding Ideas" },
+    {
+      href: `/gallery/?categoryId=${encodeURIComponent(categoryId)}`,
+      title: categoryTitle
+    },
     { title }
   ];
 

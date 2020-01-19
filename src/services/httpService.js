@@ -135,7 +135,7 @@ export async function getCategory(categoryId) {
 }
 
 export async function getImage(imageId) {
-  return get(`${basePath}/images/${imageId}`).then(
+  return get(`${basePath}/images/${imageId}`, { _expand: "category" }).then(
     ({ data: images }) => images
   );
 }

@@ -11,14 +11,25 @@ function putAll(actions) {
 }
 
 export function* handleImagesLoad() {
-  const { opts } = yield select(({ gallery }) => gallery);
+  const { opts, categoryId: oldCategoryId } = yield select(
+    ({ gallery }) => gallery
+  );
 
   try {
     yield put(setLoading(true));
 
+    const { categoryId } = opts;
+    const galleryData = {};
+    if (categoryId !== oldCategoryId) {
+      galleryData.category = yield call(http.getCategory, categoryId);
+    }
+
     const { images, totalPages } = yield call(http.getImages, opts);
 
-    yield putAll([setError(null), setGalleryData({ images, totalPages })]);
+    yield putAll([
+      setError(null),
+      setGalleryData({ images, totalPages, ...galleryData })
+    ]);
   } catch (error) {
     const err = { message: error.message };
 
