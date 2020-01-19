@@ -80,19 +80,3 @@ const BreadCrumb = props => {
 };
 
 export default BreadCrumb;
-
-const x = (
-  <>
-    <div class="wedding--breadcrumb">
-      <h3 class="wedding--breadcrumb--link">
-        <a href="/en/categories?parent_menu=photos">Gallery</a>
-      </h3>
-      <i class="fa fa-angle-right "></i>
-      <h3 class="wedding--breadcrumb--link">
-        <a href="/en/photos?category=4">Wedding Ideas</a>
-      </h3>
-      <i class="fa fa-angle-right" aria-hidden="true"></i>
-      <h2 class="wedding--breadcrumb--link">Wedding details</h2>
-    </div>
-  </>
-);
