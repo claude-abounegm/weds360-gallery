@@ -34,6 +34,10 @@ This project depends on:
 
 There is another tool to accompany this app: [weds360-gallery-scaper](https://github.com/claude-abounegm/weds360-gallery-scraper). It scrapes the live website and generates a `db.json` and downloads all images locally. It can be used directly in this project.
 
+## Initialize
+
+`npm i`
+
 ## Starting the project
 
 This project depends on json-server for its API calls, so both of these commands below need to be running for the app to function correctly.
@@ -42,6 +46,7 @@ This project depends on json-server for its API calls, so both of these commands
 # run react dev server
 npm start
 
+# ... in another terminal
 # run json-server
 npm run json-server
 ```
