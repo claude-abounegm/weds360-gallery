@@ -4,6 +4,7 @@ import _ from "lodash";
 
 import http from "../services/httpService";
 import GalleryGrid from "./galleryGrid";
+import BreadCrumb from "./breadCrumb";
 import { setAppTitle } from "../features/titleSlice";
 import { setLoading } from "../features/loadingSlice";
 
@@ -29,8 +30,12 @@ const Categories = props => {
     return null;
   }
 
+  const breadCrumbItems = [{ href: "/categories", title: "Categories" }];
+
   return (
     <>
+      <BreadCrumb items={breadCrumbItems} />
+
       <GalleryGrid
         getUrl={id => `/gallery/?categoryId=${encodeURIComponent(id)}`}
         images={categories}
