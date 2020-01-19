@@ -12,16 +12,17 @@ function putAll(actions) {
 }
 
 export function* handleImagesLoad() {
-  const { opts, category: { id: oldCategoryId } = {} } = yield select(
-    ({ gallery }) => gallery
-  );
+  const { opts, category } = yield select(({ gallery }) => gallery);
 
   try {
     yield put(setLoading(true));
 
     const { categoryId } = opts;
     const galleryData = {};
-    if (categoryId !== oldCategoryId) {
+
+    if (!_.isNumber(categoryId)) {
+      galleryData.category = null;
+    } else if (!category || categoryId !== category.id) {
       galleryData.category = yield call(http.getCategory, categoryId);
     }
 

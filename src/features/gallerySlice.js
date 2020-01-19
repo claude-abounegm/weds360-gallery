@@ -6,7 +6,8 @@ const gallerySlice = createSlice({
   initialState: {
     opts: null,
     totalPages: null,
-    images: null
+    images: null,
+    category: null
   },
   reducers: {
     loadImages: (state, { payload }) => {
