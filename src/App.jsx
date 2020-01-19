@@ -43,11 +43,7 @@ export const App = props => {
           <Switch>
             <Route path="/:id([0-9]+)" component={ImageOrGalleryRoute} />
             <Route path="/categories" component={Categories} exact />
-            <Route
-              path="/category/:category_id([0-9]+|all)"
-              component={Gallery}
-              exact
-            />
+            <Route path="/gallery" component={Gallery} exact />
             <Route path="/image/:photo_id([0-9]*)" component={Image} />
             <Redirect to="/categories" />
           </Switch>

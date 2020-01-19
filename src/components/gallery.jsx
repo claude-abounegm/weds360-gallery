@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import Pagination from "./pagination";
@@ -23,25 +23,28 @@ const Gallery = props => {
     setAppTitle
   } = props;
 
-  let { category_id: categoryId } = props.match.params;
-  if (categoryId === "all") {
-    categoryId = undefined;
-  }
-
-  const { page, limit } = (({ page, limit }) => ({
+  const query = (({ page, limit, categoryId }) => ({
     page: maybeParseInt(page) || 1,
-    limit: maybeParseInt(limit) || 9
+    limit: maybeParseInt(limit) || 9,
+    categoryId: maybeParseInt(categoryId)
   }))(parseQueryString(location.search));
+
+  const { limit, categoryId } = query;
+
+  const [page, setPage] = useState(query.page || 1);
 
   function handlePageChange(page, replace) {
     history[replace ? "replace" : "push"](
       buildUrlFromLocation(location, { page })
     );
+
+    setPage(page);
     return null;
   }
 
   function handleSearch(search) {
     loadImages({ page, limit, categoryId, search });
+    setPage(1);
   }
 
   useEffect(() => {
@@ -72,7 +75,11 @@ const Gallery = props => {
     <>
       <Filters onSearch={handleSearch} />
 
-      <GalleryGrid images={images} basePath="/image" />
+      <GalleryGrid
+        getUrl={id => `/image/${id}`}
+        images={images}
+        basePath="/image"
+      />
 
       <Pagination
         pagesCount={totalPages}

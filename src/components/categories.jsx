@@ -18,7 +18,11 @@ const Categories = props => {
 
   return (
     <>
-      <GalleryGrid images={categories} basePath="/category" />
+      <GalleryGrid
+        getUrl={id => `/gallery/?categoryId=${encodeURIComponent(id)}`}
+        images={categories}
+        basePath="/category"
+      />
     </>
   );
 };
