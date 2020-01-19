@@ -1,5 +1,4 @@
 import saga from "redux-saga";
-
 import { configureStore } from "@reduxjs/toolkit";
 
 import rootReducer from "../features";
