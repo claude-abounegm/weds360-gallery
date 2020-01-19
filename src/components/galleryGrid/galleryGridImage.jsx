@@ -21,7 +21,6 @@ const PhotoContainer = styled.div`
   width: 100%;
   margin: 0 auto;
   position: relative;
-  padding: 5px;
 `;
 
 const BackgroundImage = styled.div`

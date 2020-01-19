@@ -16,17 +16,7 @@ const GalleryGridDiv = styled.div`
     box-sizing: border-box;
   }
 
-  width: 90%;
-
-  /* width: 90%; */
-  /* display: flex; */
-  /* flex-direction: row; */
-  /* max-width: 1100px; */
-  flex-direction: column;
-  margin-top: 0;
-
-  margin: 30px auto 0;
-  font-family: "Lato", sans-serif;
+  margin: 0;
 
   &:after {
     ${clearFix}

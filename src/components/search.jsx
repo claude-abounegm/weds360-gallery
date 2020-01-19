@@ -31,14 +31,21 @@ const ApplyButton = styled(FilterButton)`
   color: #fff;
 `;
 
+const ActionButtons = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+`;
+
 const SearchInput = styled.input`
-  width: 30%;
+  width: 100%;
   border: 1px solid black;
   padding: 5px;
   margin: 20px 2px;
 `;
 
-const Filters = props => {
+const Search = props => {
   const { onSearch } = props;
 
   const [value, setValue] = useState("");
@@ -58,13 +65,14 @@ const Filters = props => {
 
   return (
     <>
-      <ClearButton onClick={handleClear}>Clear</ClearButton>
+      <ActionButtons>
+        <ClearButton onClick={handleClear}>Clear</ClearButton>
 
-      <ApplyButton disabled={value === ""} onClick={handleSearch}>
-        Apply
-      </ApplyButton>
+        <ApplyButton disabled={value === ""} onClick={handleSearch}>
+          Apply
+        </ApplyButton>
+      </ActionButtons>
 
-      <br />
       <SearchInput
         type="text"
         value={value}
@@ -75,4 +83,4 @@ const Filters = props => {
   );
 };
 
-export default Filters;
+export default Search;

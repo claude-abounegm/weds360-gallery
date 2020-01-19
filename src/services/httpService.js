@@ -64,6 +64,25 @@ function mapValuesToQuery(opts = {}, keyMap, defaults) {
   return { ...defaults, ...obj };
 }
 
+function getTotalPagesFromHeaders(headers, limit) {
+  let totalPages = null;
+
+  try {
+    const link = headers["link"];
+    if (link) {
+      const lastLink = /<([^>]+)>; rel="last"/.exec(link)[1];
+      totalPages = +lastLink.match(/_page=([0-9]+)/)[1];
+    }
+  } catch (e) {}
+
+  if (totalPages === null) {
+    const totalCount = headers["x-total-count"];
+    totalPages = Math.ceil(totalCount / limit);
+  }
+
+  return totalPages;
+}
+
 export async function getImages(opts) {
   let { page, limit, force } = opts || {};
 
@@ -94,20 +113,7 @@ export async function getImages(opts) {
 
   const { data: images, headers } = await get(`${basePath}/images`, query);
 
-  let totalPages = null;
-
-  try {
-    const link = headers["link"];
-    if (link) {
-      const lastLink = /<([^>]+)>; rel="last"/.exec(link)[1];
-      totalPages = +lastLink.match(/_page=([0-9]+)/)[1];
-    }
-  } catch (e) {}
-
-  if (totalPages === null) {
-    const totalCount = headers["x-total-count"];
-    totalPages = Math.ceil(totalCount / limit);
-  }
+  const totalPages = getTotalPagesFromHeaders(headers, limit);
 
   if (totalPages > 0 && page > totalPages) {
     throw new InvalidPageError();

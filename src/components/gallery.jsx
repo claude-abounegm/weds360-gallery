@@ -10,9 +10,32 @@ import {
 import { loadImages } from "../features/gallerySlice";
 import { setAppTitle } from "../features/titleSlice";
 import { Redirect } from "react-router-dom";
-import Filters from "./filters";
+import Search from "./search";
 import GalleryGrid from "./galleryGrid";
 import BreadCrumb from "./breadCrumb";
+
+import styled from "styled-components";
+
+const PhotosWrapper = styled.div`
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  max-width: 1100px;
+  margin: 30px auto 0;
+`;
+
+const FiltersContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  position: relative;
+  box-sizing: border-box;
+  margin-right: 25px;
+`;
+
+const PhotosContainer = styled.div`
+  width: 70%;
+`;
 
 const Gallery = props => {
   const {
@@ -82,23 +105,31 @@ const Gallery = props => {
   return (
     <>
       <BreadCrumb items={breadCrumbItems} />
-      <Filters onSearch={handleSearch} />
 
-      {images.length === 0 && (
-        <>
-          <br />
-          <span>
-            No images found.{" "}
-            {search && "Please try to widen your search query and try again."}
-          </span>
-        </>
-      )}
+      <PhotosWrapper>
+        <FiltersContainer>
+          <Search onSearch={handleSearch} />
+        </FiltersContainer>
 
-      <GalleryGrid
-        getUrl={id => `/image/${id}`}
-        images={images}
-        basePath="/image"
-      />
+        <PhotosContainer>
+          {images.length === 0 && (
+            <>
+              <br />
+              <span>
+                No images found.{" "}
+                {search &&
+                  "Please try to widen your search query and try again."}
+              </span>
+            </>
+          )}
+
+          <GalleryGrid
+            getUrl={id => `/image/${id}`}
+            images={images}
+            basePath="/image"
+          />
+        </PhotosContainer>
+      </PhotosWrapper>
 
       <Pagination
         pagesCount={totalPages}
