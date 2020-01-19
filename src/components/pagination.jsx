@@ -24,7 +24,7 @@ const Pagination = props => {
     onPageChange
   } = props;
 
-  if (pagesCount === 0) {
+  if (pagesCount <= 1) {
     return null;
   }
 
