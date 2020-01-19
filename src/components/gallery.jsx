@@ -31,7 +31,8 @@ const Gallery = props => {
 
   const { limit, categoryId } = query;
 
-  const [page, setPage] = useState(query.page || 1);
+  const [page, setPage] = useState(query.page);
+  const [search, setSearch] = useState("");
 
   function handlePageChange(page, replace) {
     history[replace ? "replace" : "push"](
@@ -43,8 +44,8 @@ const Gallery = props => {
   }
 
   function handleSearch(search) {
-    loadImages({ page, limit, categoryId, search });
-    setPage(1);
+    handlePageChange(1);
+    setSearch(search);
   }
 
   useEffect(() => {
@@ -53,9 +54,9 @@ const Gallery = props => {
   }, []);
 
   useEffect(() => {
-    loadImages({ page, limit, categoryId });
+    loadImages({ page, limit, categoryId, search });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, limit, categoryId]);
+  }, [page, limit, categoryId, search]);
 
   if (error) {
     const { to, message } = error;
@@ -74,6 +75,16 @@ const Gallery = props => {
   return (
     <>
       <Filters onSearch={handleSearch} />
+
+      {images.length === 0 && (
+        <>
+          <br />
+          <span>
+            No images found in this gallery.{" "}
+            {search && "Please try to widen your search query and try again."}
+          </span>
+        </>
+      )}
 
       <GalleryGrid
         getUrl={id => `/image/${id}`}
