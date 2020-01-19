@@ -19,8 +19,8 @@ const Pagination = props => {
   const {
     pagesCount = 1,
     currentPage = 1,
-    pagesCountLeft = 9,
-    pagesCountRight = 2,
+    // pagesCountLeft = 9,
+    // pagesCountRight = 2,
     onPageChange
   } = props;
 

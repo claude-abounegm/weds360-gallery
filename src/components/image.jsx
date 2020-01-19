@@ -6,16 +6,16 @@ import http from "../services/httpService";
 import BreadCrumb from "./breadCrumb";
 import { setAppTitle } from "../features/titleSlice";
 import Anchor from "../elements/Anchor";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const FontAwesomeIconBrand = ({ icon, ...props }) => (
-  <FontAwesomeIcon {...props} icon={["fab", icon]} />
-);
+// const FontAwesomeIconBrand = ({ icon, ...props }) => (
+//   <FontAwesomeIcon {...props} icon={["fab", icon]} />
+// );
 
-const FacebookIcon = props => (
-  <FontAwesomeIconBrand {...props} icon="facebook-f" />
-);
-const TwitterIcon = props => <FontAwesomeIconBrand {...props} icon="twitter" />;
+// const FacebookIcon = props => (
+//   <FontAwesomeIconBrand {...props} icon="facebook-f" />
+// );
+// const TwitterIcon = props => <FontAwesomeIconBrand {...props} icon="twitter" />;
 
 const ImageWrapper = styled.div`
   display: flex;
@@ -66,17 +66,17 @@ const Description = styled.h5`
   }
 `;
 
-const SocialIcon = styled(FontAwesomeIconBrand)`
-  border-radius: 50%;
-  height: 34px;
-  width: 34px;
-  background-color: #000;
-  font-size: 22px;
-  padding-left: 7px;
-  padding-top: 6px;
-  color: #fff;
-  margin-right: 5px;
-`;
+// const SocialIcon = styled(FontAwesomeIconBrand)`
+//   border-radius: 50%;
+//   height: 34px;
+//   width: 34px;
+//   background-color: #000;
+//   font-size: 22px;
+//   padding-left: 7px;
+//   padding-top: 6px;
+//   color: #fff;
+//   margin-right: 5px;
+// `;
 
 const Image = props => {
   const { setAppTitle } = props;
