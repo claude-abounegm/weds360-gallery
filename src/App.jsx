@@ -15,6 +15,7 @@ import ImageOrGalleryRoute from "./components/imageOrGalleryRoute";
 import Loader from "./components/loader";
 import Footer from "./components/footer";
 import ScrollToTop from "./components/scrollToTop";
+import BreadCrumb from "./components/breadCrumb";
 
 import "./scss/App.scss";
 
@@ -40,6 +41,7 @@ export const App = props => {
         <Wrapper>
           <Loader />
           <ScrollToTop />
+          <BreadCrumb />
           <Switch>
             <Route path="/:id([0-9]+)" component={ImageOrGalleryRoute} />
             <Route path="/categories" component={Categories} exact />
