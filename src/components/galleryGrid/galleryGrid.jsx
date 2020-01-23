@@ -1,25 +1,15 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 import GalleryImage from "./galleryGridImage";
 
-const clearFix = css`
-  content: " ";
-  visibility: hidden;
-  display: block;
-  height: 0;
-  clear: both;
-`;
-
 const GalleryGridDiv = styled.div`
-  * {
-    box-sizing: border-box;
-  }
-
   margin: 0;
 
-  &:after {
-    ${clearFix}
+  @media (min-width: 900px) {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
   }
 `;
 

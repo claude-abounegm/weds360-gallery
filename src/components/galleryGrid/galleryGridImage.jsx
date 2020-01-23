@@ -4,16 +4,17 @@ import styled from "styled-components";
 
 const ResponsiveDiv = styled.div`
   padding: 5px;
-  float: left;
-  width: 33.333333%;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  flex-basis: 33.3333%;
 
-  @media only screen and (max-width: 700px) {
+  /* @media only screen and (max-width: 700px) {
     width: 49.99999%;
   }
 
   @media only screen and (max-width: 575px) {
     width: 50%;
-  }
+  } */
 `;
 
 const PhotoContainer = styled.div`
@@ -21,6 +22,7 @@ const PhotoContainer = styled.div`
   width: 100%;
   margin: 0 auto;
   position: relative;
+  box-sizing: border-box;
 `;
 
 const BackgroundImage = styled.div`
@@ -29,6 +31,7 @@ const BackgroundImage = styled.div`
   object-fit: contain;
   background-size: cover !important;
   background-position: center !important;
+  box-sizing: border-box;
 
   @media only screen and (max-width: 575px) {
     height: 120px;
@@ -51,6 +54,7 @@ const PhotoDescription = styled.h3`
   display: -webkit-box;
   line-height: 25px;
   height: 50px;
+  box-sizing: border-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 `;

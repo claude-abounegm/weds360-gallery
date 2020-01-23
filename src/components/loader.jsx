@@ -23,6 +23,18 @@ const LoaderDiv = styled.div`
     margin: auto;
     vertical-align: middle;
     border: 0;
+
+    animation: op 1s ease-in-out infinite alternate-reverse;
+    opacity: 1;
+
+    @keyframes op {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
   }
 `;
 
