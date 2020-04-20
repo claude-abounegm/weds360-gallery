@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React, { useState } from "react";
 import styled from "styled-components";
 
@@ -45,13 +46,17 @@ const SearchInput = styled.input`
   margin: 20px 2px;
 `;
 
-const Search = props => {
-  const { onSearch, onClear } = props;
+const Search = (props) => {
+  const { onSearch, onClear, useApplyButton = true, debouceTime = 500 } = props;
 
   const [value, setValue] = useState("");
 
   function handleChange(e) {
     setValue(e.target.value);
+
+    if (!useApplyButton) {
+      handleSearch();
+    }
   }
 
   function handleClear() {
@@ -59,8 +64,12 @@ const Search = props => {
     onClear();
   }
 
-  function handleSearch() {
+  let handleSearch = function () {
     onSearch(value);
+  };
+
+  if (!useApplyButton && debouceTime > 0) {
+    handleSearch = _.debounce(handleSearch, debouceTime);
   }
 
   return (
@@ -68,9 +77,11 @@ const Search = props => {
       <ActionButtons>
         <ClearButton onClick={handleClear}>Clear</ClearButton>
 
-        <ApplyButton disabled={value === ""} onClick={handleSearch}>
-          Apply
-        </ApplyButton>
+        {useApplyButton && (
+          <ApplyButton disabled={value === ""} onClick={handleSearch}>
+            Apply
+          </ApplyButton>
+        )}
       </ActionButtons>
 
       <SearchInput

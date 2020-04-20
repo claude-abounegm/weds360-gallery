@@ -78,7 +78,7 @@ const Description = styled.h5`
 //   margin-right: 5px;
 // `;
 
-const Image = props => {
+const Image = (props) => {
   const { setAppTitle } = props;
   const { photo_id: imageId } = props.match.params;
 
@@ -104,21 +104,21 @@ const Image = props => {
     title,
     categoryId,
     category: { title: categoryTitle },
-    description = "Test description with some more text and more and more and more",
-    service = { name: "Al Khardawaty", href: "/en/services/151" }
+    description,
+    service,
   } = image;
 
   const breadCrumbItems = [
     { href: "/gallery", title: "Gallery" },
     {
       href: `/gallery/?categoryId=${encodeURIComponent(categoryId)}`,
-      title: categoryTitle
+      title: categoryTitle,
     },
-    { title }
+    { title },
   ];
 
   // we use window.location here because we want the full href to be shared
-  const sharableLink = encodeURIComponent(window.location.href);
+  const shareableLink = encodeURIComponent(window.location.href);
 
   return (
     <>
@@ -158,8 +158,8 @@ const Image = props => {
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  setAppTitle: title => dispatch(setAppTitle(title))
+const mapDispatchToProps = (dispatch) => ({
+  setAppTitle: (title) => dispatch(setAppTitle(title)),
 });
 
 export default connect(null, mapDispatchToProps)(Image);

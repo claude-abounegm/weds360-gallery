@@ -102,7 +102,7 @@ export async function getImages(opts) {
       // page: value => ({ _page: value }),
       limit: "_limit",
       all: () => ({ _expand: "category" }),
-      search: "title_like"
+      search: "title_like",
       // categoryId: false
     })
   );
@@ -122,10 +122,25 @@ export async function getImages(opts) {
   const obj = {
     currentPage: 1,
     totalPages,
-    images
+    images,
   };
 
   return (imgsCache[query] = obj);
+}
+
+export async function getImagesWithGallery(opts) {
+  const { categoryId } = opts;
+  const galleryData = { category: null };
+
+  if (_.isNumber(categoryId)) {
+    galleryData.category = await this.getCategory(categoryId);
+  }
+
+  const { images, totalPages } = await this.getImages(opts);
+
+  _.assign(galleryData, { images, totalPages });
+
+  return galleryData;
 }
 
 export async function getCategories() {
@@ -175,5 +190,6 @@ export default {
   getImage,
   getCategory,
   isValidCategory,
-  isValidImage
+  isValidImage,
+  getImagesWithGallery,
 };

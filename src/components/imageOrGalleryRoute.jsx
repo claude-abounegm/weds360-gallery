@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import http from "../services/httpService";
 
-const ImageOrGalleryRoute = props => {
+const ImageOrGalleryRoute = (props) => {
   const { id } = props.match.params;
 
   const [type, setType] = useState(null);

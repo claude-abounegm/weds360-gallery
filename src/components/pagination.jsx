@@ -6,7 +6,7 @@ import {
   PaginationLI,
   PaginationButton,
   PaginationPreviousButton,
-  PaginationNextButton
+  PaginationNextButton,
 } from "./../elements/Pagination";
 
 const Seperator = () => (
@@ -15,13 +15,13 @@ const Seperator = () => (
   </PaginationButton>
 );
 
-const Pagination = props => {
+const Pagination = (props) => {
   const {
     pagesCount = 1,
     currentPage = 1,
     // pagesCountLeft = 9,
     // pagesCountRight = 2,
-    onPageChange
+    onPageChange,
   } = props;
 
   if (pagesCount <= 1) {
@@ -34,7 +34,7 @@ const Pagination = props => {
       disabled,
       onPageChange,
       key,
-      DefaultButton = PaginationButton
+      DefaultButton = PaginationButton,
     } = opts || {};
 
     return (
@@ -56,8 +56,8 @@ const Pagination = props => {
       disabled: currentPage === 1,
       text: "← Previous",
       onPageChange: () => onPageChange(currentPage - 1),
-      DefaultButton: PaginationPreviousButton
-    })
+      DefaultButton: PaginationPreviousButton,
+    }),
   ];
 
   // pagination.push(
@@ -74,19 +74,19 @@ const Pagination = props => {
 
   if (currentPage < 9) {
     pagination.push(
-      ..._.range(1, before).map(page =>
+      ..._.range(1, before).map((page) =>
         paginationButton(page, {
           disabled: currentPage === page,
-          onPageChange
+          onPageChange,
         })
       )
     );
   } else {
     pagination.push(
-      ..._.range(1, 3).map(page =>
+      ..._.range(1, 3).map((page) =>
         paginationButton(page, {
           disabled: currentPage === page,
-          onPageChange
+          onPageChange,
         })
       ),
       <Seperator />
@@ -94,10 +94,10 @@ const Pagination = props => {
   }
 
   pagination.push(
-    ..._.range(before, after + 1).map(page =>
+    ..._.range(before, after + 1).map((page) =>
       paginationButton(page, {
         disabled: currentPage === page,
-        onPageChange
+        onPageChange,
       })
     )
   );
@@ -105,20 +105,20 @@ const Pagination = props => {
   const remainingRight = pagesCount - after;
   if (remainingRight <= 3) {
     pagination.push(
-      ..._.range(after + 1, pagesCount + 1).map(page =>
+      ..._.range(after + 1, pagesCount + 1).map((page) =>
         paginationButton(page, {
           disabled: currentPage === page,
-          onPageChange
+          onPageChange,
         })
       )
     );
   } else {
     pagination.push(
       <Seperator />,
-      ..._.range(pagesCount - 1, pagesCount + 1).map(page =>
+      ..._.range(pagesCount - 1, pagesCount + 1).map((page) =>
         paginationButton(page, {
           disabled: currentPage === page,
-          onPageChange
+          onPageChange,
         })
       )
     );
@@ -145,7 +145,7 @@ const Pagination = props => {
       disabled: currentPage === pagesCount,
       text: "Next →",
       onPageChange: () => onPageChange(currentPage + 1),
-      DefaultButton: PaginationNextButton
+      DefaultButton: PaginationNextButton,
     })
   );
 

@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import Pagination from "./pagination";
+import http from "../services/httpService";
 import {
   parseQueryString,
   maybeParseInt,
-  buildUrlFromLocation
+  buildUrlFromLocation,
 } from "../utils";
-import { loadImages } from "../features/gallerySlice";
+import { setLoading } from "../features/loadingSlice";
+import { setGalleryData } from "../features/gallerySlice";
 import { setAppTitle } from "../features/titleSlice";
 import { Redirect } from "react-router-dom";
 import Search from "./search";
@@ -37,20 +39,22 @@ const PhotosContainer = styled.div`
   width: 70%;
 `;
 
-const Gallery = props => {
+const Gallery = (props) => {
   const {
     error,
     location,
-    loadImages,
+    // loadImages,
     history,
     gallery: { images, totalPages, category },
-    setAppTitle
+    setAppTitle,
+    setGalleryData,
+    setLoading,
   } = props;
 
   const query = (({ page, limit, categoryId }) => ({
     page: maybeParseInt(page) || 1,
     limit: maybeParseInt(limit) || 9,
-    categoryId: maybeParseInt(categoryId)
+    categoryId: maybeParseInt(categoryId),
   }))(parseQueryString(location.search));
 
   const { limit, categoryId } = query;
@@ -78,11 +82,19 @@ const Gallery = props => {
 
   useEffect(() => {
     setAppTitle("Gallery");
+    setLoading(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    loadImages({ page, limit, categoryId, search });
+    http
+      .getImagesWithGallery({ page, limit, categoryId, search })
+      .then((galleryData) => {
+        setGalleryData(galleryData);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, limit, categoryId, search]);
 
@@ -128,7 +140,7 @@ const Gallery = props => {
           )}
 
           <GalleryGrid
-            getUrl={id => `/image/${id}`}
+            getUrl={(id) => `/image/${id}`}
             images={images}
             basePath="/image"
           />
@@ -146,12 +158,14 @@ const Gallery = props => {
 
 const mapStateToProps = ({ gallery, error }) => ({
   gallery,
-  error
+  error,
 });
 
-const mapDispatchToProps = dispatch => ({
-  loadImages: opts => dispatch(loadImages(opts)),
-  setAppTitle: title => dispatch(setAppTitle(title))
+const mapDispatchToProps = (dispatch) => ({
+  // loadImages: (opts) => dispatch(loadImages(opts)),
+  setGalleryData: (galleryData) => dispatch(setGalleryData(galleryData)),
+  setLoading: (loading) => dispatch(setLoading(loading)),
+  setAppTitle: (title) => dispatch(setAppTitle(title)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Gallery);

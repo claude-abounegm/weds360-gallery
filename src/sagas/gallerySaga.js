@@ -8,15 +8,13 @@ import http from "../services/httpService";
 import { InvalidPageError } from "../errors";
 
 function putAll(actions) {
-  return all(actions.map(action => put(action)));
+  return all(actions.map((action) => put(action)));
 }
 
 export function* handleImagesLoad() {
   const { opts, category } = yield select(({ gallery }) => gallery);
 
   try {
-    yield put(setLoading(true));
-
     const { categoryId } = opts;
     const galleryData = {};
 
@@ -39,11 +37,9 @@ export function* handleImagesLoad() {
     }
 
     yield put(setError(err));
-  } finally {
-    yield put(setLoading(false));
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeEvery(loadImages, handleImagesLoad);
 }
